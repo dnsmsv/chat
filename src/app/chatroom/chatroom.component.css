@@ -23,8 +23,8 @@
     padding: 20px 0px 0px 24px;
     background-color: #ffffff;
     background: 
-        linear-gradient(180deg, rgba(100, 200, 2500, 0.6), rgba(0, 0, 0, 0.9)),
-        url('../../assets/img/chat-bg-1.jpeg') center center no-repeat;
+        linear-gradient(180deg, rgba(100, 200, 2500, 0.5), rgba(0, 0, 0, 0.8)),
+        url('../../assets/img/chat-bg-1.jpg') center no-repeat;
 }
 
 .chatFormWrapper {
@@ -32,4 +32,9 @@
     height: 50px;
     background-color: #eeeeee;
     z-index: 3;
+}
+
+#scroll-style::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #f5f5f5;
 }
