@@ -7,16 +7,18 @@ import { AuthService } from '../services/auth.service';
 import * as firebase from 'firebase/app';
 
 import { ChatMessage } from '../models/chat-message.model';
+import { User } from '../models/user.model';
+import { error } from 'protractor';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService {
-  user: any
+  user: firebase.User;
   chatMessages: BehaviorSubject<ChatMessage[]> = new BehaviorSubject([]);
-  userName: Observable<string> = new Observable<string>();
-  private name: string;
+  users: BehaviorSubject<User[]> = new BehaviorSubject([]);
+  userName: string;
   private url = 'https://chat-d73d2.firebaseio.com';
 
   constructor(
@@ -24,23 +26,29 @@ export class ChatService {
     private db: AngularFireDatabase,
     private afAuth: AngularFireAuth
   ) { 
-    // this.afAuth.authState.subscribe(auth => {
-    //   if (auth !== undefined && auth !== null) {
-    //     this.user = auth;
-    //   }
-    // })
-    this.userName.subscribe(n => {
-      this.name = n
+    this.afAuth.authState.subscribe(auth => {
+      if (auth !== undefined && auth !== null) {
+        this.user = auth;
+        
+        this.getUser(this.user.uid)
+          .subscribe(
+            (data: User) => {
+              this.userName = data.name
+              console.log(data.name);
+            },
+            error => console.error('Error:', error)
+          );
+
+      }
     })
   }
 
-  sendMessage(msg: string) {
-    // const email = this.user.email;
-    const email = 'test@example.com';
+  postMessage(msg: string) {
+    const email = this.user.email;
     const chatMessage: ChatMessage = new ChatMessage(
-      'test-user', email, msg, new Date(Date.now())
+      this.userName, email, msg, new Date(Date.now())
     )
-    this.http.post(`${this.url}/message.json`, chatMessage, {
+    this.http.post(`${this.url}/messages.json`, chatMessage, {
       headers: {
         'content-type': 'application/json'
       }
@@ -54,27 +62,65 @@ export class ChatService {
     );
   }
 
-  loadMessages(): void {
-    this.http.get<ChatMessage[]>(`${this.url}/message.json`, {
+  getMessages(): void {
+    this.http.get<ChatMessage[]>(`${this.url}/messages.json`, {
       headers: {
         'content-type': 'application/json'
       }
     }).subscribe(
       (data: ChatMessage[]) => {
-        const messages = Reflect.ownKeys(data).map(key => ({ ...data[key] }));
-        this.chatMessages.next(messages)
+        if (data) {
+          const messages = Reflect.ownKeys(data).map(key => ({ ...data[key] }));
+          this.chatMessages.next(messages)
+        }
       },
       error => console.error('Error:', error))
   }
 
-  // getTimeStamp() {
-  //   const now = new Date();
-  //   const date = now.getUTCFullYear() + '/' +
-  //                (now.getUTCMonth() + 1) + '/' + 
-  //                now.getUTCDate();
-  //   const time = now.getUTCHours() + ':' +
-  //                now.getUTCMinutes() + ':' +
-  //                now.getUTCSeconds();
-  //   return (date + ' ' + time);
-  // }
+  getUser(id: string): Observable<User> {
+    return this.http.get(`${this.url}/users/${id}.json`, {
+      headers: {
+        'content-type': 'application/json'
+      }
+    })
+  }
+
+  postUser(id: string, email: string, name: string, password: string, status: string): void {
+    console.log('post=', id);
+    
+    const user: User = new User(id, email, name, password, status);
+    this.http.put(`${this.url}/users/${id}.json`, user, {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }).subscribe(
+      () => {
+        const newUsers = this.users.value;
+        newUsers.push(user);
+        this.users.next(newUsers);
+      },
+      error => console.error('Error:', error)
+    );
+  }
+
+  updateUser(id: string, status: string): void {
+    this.http.patch(`${this.url}/users/${id}.json`, {
+      "status": status
+    }, {
+      headers: {
+        'content-type': 'application/json'
+      }
+    }
+    ).subscribe(
+      () => {
+        const user: User = this.users.value.find(u => u.id === id);
+
+        if (user) {
+          user.status = status;
+          this.users.next(this.users.value);
+        }
+      },
+      error => console.error('Error:', error)
+    )
+  }
 }
