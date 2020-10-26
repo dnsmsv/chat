@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertType } from '../models/alertType';
+import { AlertService } from '../services/alert.service';
 import { AuthService } from '../services/auth.service';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-signup-form',
   templateUrl: './signup-form.component.html',
-  styleUrls: ['./signup-form.component.css']
+  styleUrls: ['./signup-form.component.css'],
 })
 export class SignupFormComponent {
   email: string;
@@ -15,17 +16,18 @@ export class SignupFormComponent {
   errorMsg: string;
 
   constructor(
+    private alertService: AlertService,
     private authService: AuthService,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   signUp() {
-    console.log('Sign Up');
-    
     const email = this.email;
     const password = this.password;
     const displayName = this.displayName;
-    this.authService.signUp(email, password, displayName)
-      .then(resolve => this.router.navigate(['chat']))
-      .catch(error => this.errorMsg = error.message);
+    this.authService
+      .signUp(email, password, displayName)
+      .then(() => this.router.navigate(['chat']))
+      .catch((error) => this.alertService.show(error.message, AlertType.Error));
   }
 }

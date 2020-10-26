@@ -1,13 +1,13 @@
-<div class="messageContainer">
+<div class="messageContainer" [class.isOwnMessageContainer]="isOwnMessage">
     <div class="messageData">
-        <span class="sender">
+        <span class="sender" [class.isOwnSender]="isOwnMessage">
             {{ userName }}
         </span>
-        <span class="timestamp">
+        <span class="timestamp" [class.isOwnTimestamp]="isOwnMessage">
             {{ timeStamp | date: 'medium' }}
         </span>
     </div>
-    <div class="messageContent">
+    <div class="messageContent" [class.isOwnMessageContent]="isOwnMessage">
         {{ messageContent }}
     </div>
 </div>

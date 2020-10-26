@@ -3,13 +3,13 @@
   <div id="heading"><a routerLink="/">Chat</a></div>
   <div class="links">
     <span>
-      <a *ngIf="!userEmail" href="#" (click)="login()">login</a>
+      <a *ngIf="!userEmail" routerLink="/login">Login</a>
     </span>
     <span>
       <a *ngIf="!userEmail" routerLink="/signup">Sign Up</a>
     </span>
     <span>
-      <span id="userEmail" *ngIf="(user|async)?.uid">Hellow, {{ userEmail }}</span>
+      <span id="userEmail" *ngIf="userEmail">Hello, {{ userEmail }}</span>
     </span>
     <span>
       <a *ngIf="userEmail" href="#" (click)="logout()">Logout</a>

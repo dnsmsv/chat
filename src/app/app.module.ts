@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms'
-import { RouterModule } from '@angular/router'
+import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { AlertComponent } from './alert/alert.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatFormComponent } from './chat-form/chat-form.component';
@@ -18,8 +19,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserItemComponent } from './user-item/user-item.component';
 
-import { ChatService } from './services/chat.service';
+import { AlertService } from './services/alert.service';
 import { AuthService } from './services/auth.service';
+import { ChatService } from './services/chat.service';
 
 import { appRoutes } from 'src/routes';
 import { environment } from 'src/environments/environment';
@@ -36,7 +38,8 @@ import { HttpClientModule } from '@angular/common/http';
     SignupFormComponent,
     NavbarComponent,
     UserListComponent,
-    UserItemComponent
+    UserItemComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,9 +50,9 @@ import { HttpClientModule } from '@angular/common/http';
     AngularFireModule,
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
   ],
-  providers: [AuthService, ChatService],
-  bootstrap: [AppComponent]
+  providers: [AlertService, AuthService, ChatService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

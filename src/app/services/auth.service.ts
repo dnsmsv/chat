@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import { error } from 'protractor';
 import { Observable } from 'rxjs';
 import { ChatService } from './chat.service';
 
@@ -23,12 +24,28 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.afAuth.auth
-      .signInWithEmailAndPassword(email, password)
-      .then((resolve) => {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
+      (resolve) => {
         const status = 'online';
         this.chatService.updateUser(this.authState.uid, status);
-      });
+      },
+      (error) => {
+        throw new Error(error.message);
+      }
+    );
+  }
+
+  logout() {
+    this.afAuth.auth.signOut().then(
+      () => {
+        this.user = null;
+        const status = 'offline';
+        this.chatService.updateUser(this.authState.uid, status);
+      },
+      (error) => {
+        throw new Error(error.message);
+      }
+    );
   }
 
   signUp(email: string, password: string, displayName: string) {
@@ -43,8 +60,10 @@ export class AuthService {
           displayName,
           password,
           status
-        );
-      })
-      .catch((error) => console.log('Error: ', error.message));
+        ),
+          (error) => {
+            throw new Error(error.message);
+          };
+      });
   }
 }

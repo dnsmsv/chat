@@ -1,1 +1,47 @@
-<p>login-form works!</p>
+<div class="container">
+  <div class="loginCard">
+    <form #loginForm="ngForm">
+      <h2 class="heading">Login</h2>
+
+      <label 
+        for="email" 
+        class="label"
+      >
+        Email
+      </label>
+      <input 
+        type="email" 
+        name="email" 
+        class="formInput" 
+        placeholder="Enter your email address" 
+        [(ngModel)]="email"
+        maxlength="60" 
+        required
+      >
+
+      <label 
+        for="password" 
+        class="label"
+      >
+        Password
+      </label>
+      <input 
+        type="password" 
+        name="password" 
+        class="formInput" 
+        placeholder="Enter your password" 
+        [(ngModel)]="password"
+        required>
+
+      <button 
+        class="btn" 
+        [disabled]="!loginForm.form.valid" 
+        type="submit" 
+        (click)="login()"
+        id="btn-login"
+      >
+        Login
+      </button>
+    </form>
+  </div>
+</div>

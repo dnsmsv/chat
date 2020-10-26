@@ -1,0 +1,87 @@
+.alertCard {
+  display: block;
+  justify-content: space-between;
+  position: fixed;
+  top: 115px;
+  right: 20px;
+  min-width: 250px;
+  height: auto;
+  margin: 50px;
+  padding: 0 2px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.alertCard.visible {
+  animation: alertCard 10s ease-in forwards;
+}
+
+.alertCard:not(.visible) {
+  display: none;
+}
+
+@keyframes alertCard {
+  0% {
+    opacity: 0;
+    transform: translateY(-200px);
+  }
+
+  5% {
+    opacity: 0.7;
+    transform: translateY(10px);
+  }
+
+  7% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  93% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  95% {
+    oopacity: 0.7;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-200px);
+    display: none;
+  }
+}
+
+.info {
+  background-color: rgba(152, 228, 152, 0.95);
+  border: green 1px solid;
+  color: rgb(1, 95, 1);
+}
+
+.warning {
+  background-color: rgba(223, 230, 126, 0.95);
+  border: rgb(184, 184, 2) 1px solid;
+  color: rgb(126, 126, 0);
+}
+
+.error {
+  background-color: rgba(250, 193, 193, 0.95);
+  border: rgb(184, 2, 2) 1px solid;
+  color: rgb(126, 0, 0);
+}
+
+p {
+  padding: 0 10px;
+  line-height: 60px;
+  float: left;
+}
+
+button {
+  background-color: transparent;
+  color: inherit;
+  font-size: 1.2em;
+  font-weight: bold;
+  height: 20px;
+}

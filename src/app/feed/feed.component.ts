@@ -7,16 +7,16 @@ import { AngularFireList } from 'angularfire2/database';
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.css']
+  styleUrls: ['./feed.component.css'],
 })
 export class FeedComponent implements OnInit {
   feed: ChatMessage[];
 
-  constructor(private chatService: ChatService) { }
+  constructor(private chatService: ChatService) {}
 
   ngOnInit(): void {
-    this.chatService.chatMessages.subscribe(messages => 
-      this.feed = messages);
-    this.chatService.getMessages();
+    this.chatService.chatMessages.subscribe(
+      (messages) => (this.feed = messages)
+    );
   }
 }
