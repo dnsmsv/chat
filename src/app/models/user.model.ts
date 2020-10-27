@@ -1,8 +1,11 @@
+import { StatusType } from './statusType';
+
 export class User {
-    constructor(
-        public id?: string,
-        public email?: string,
-        public name?: string,
-        public password?: string,
-        public status?: string) {}
+  constructor(
+    public id?: string,
+    public email?: string,
+    public name?: string,
+    public password?: string,
+    public status?: StatusType
+  ) {}
 }

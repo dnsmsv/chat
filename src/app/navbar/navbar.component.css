@@ -44,6 +44,7 @@
 }
 
 .links a:hover {
+  cursor: pointer;
   color: #1e88e5;
   transition: ease-in 0.2s;
 }

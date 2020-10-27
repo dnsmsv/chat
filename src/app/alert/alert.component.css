@@ -79,6 +79,7 @@ p {
 }
 
 button {
+  float: right;
   background-color: transparent;
   color: inherit;
   font-size: 1.2em;

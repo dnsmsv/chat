@@ -1,0 +1,45 @@
+.userContext {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltiptext {
+  display: inline;
+  overflow: hidden;
+  visibility: hidden;
+  width: auto;
+  height: auto;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  left: 105%;
+  z-index: 1;
+  color: white;
+  background-color: rgba(74, 74, 187, 0.705);
+}
+
+.userContext:hover .tooltiptext {
+  visibility: visible;
+}
+
+.status {
+  height: 13px;
+  width: 13px;
+  border-radius: 50%;
+  border: black 1px solid;
+  display: inline-block;
+}
+
+.status.online {
+  background-color: rgb(0, 206, 0);
+}
+
+.status.offline {
+  background-color: lightgray;
+}
+
+.name {
+  display: inline-block;
+  margin: 5px;
+}

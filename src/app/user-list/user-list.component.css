@@ -1,0 +1,8 @@
+.usersContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.users {
+  height: auto;
+}

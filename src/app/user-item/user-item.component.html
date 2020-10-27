@@ -1,1 +1,6 @@
-<p>user-item works!</p>
+<div class="userContext">
+  <span class="tooltiptext">{{ user.name }} ({{ user.status }})</span>
+  <span class="status" [class.online]="user.status === statusType.Online"
+    [class.offline]="user.status === statusType.Offline"></span>
+  <span class="name">{{ user.name }}</span>
+</div>

@@ -1,33 +1,31 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { error } from 'protractor';
-import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { StatusType } from '../models/statusType';
 import { ChatService } from './chat.service';
 
 @Injectable()
 export class AuthService {
-  private user: Observable<firebase.User>;
-  private authState: any;
+  private _user: BehaviorSubject<firebase.User> = new BehaviorSubject(null);
 
   constructor(
     private afAuth: AngularFireAuth,
-    private chatService: ChatService,
-    private router: Router
+    private chatService: ChatService
   ) {
-    this.user = afAuth.authState;
+    afAuth.authState.subscribe((state: firebase.User) =>
+      this._user.next(state)
+    );
   }
 
-  authUser() {
-    return this.user;
+  get user() {
+    return this._user;
   }
 
   login(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
-      (resolve) => {
-        const status = 'online';
-        this.chatService.updateUser(this.authState.uid, status);
+      (userCredential: firebase.auth.UserCredential) => {
+        this._user.next(userCredential.user);
       },
       (error) => {
         throw new Error(error.message);
@@ -36,11 +34,11 @@ export class AuthService {
   }
 
   logout() {
-    this.afAuth.auth.signOut().then(
+    return this.afAuth.auth.signOut().then(
       () => {
-        this.user = null;
-        const status = 'offline';
-        this.chatService.updateUser(this.authState.uid, status);
+        if (this._user.value) {
+          this._user.next(null);
+        }
       },
       (error) => {
         throw new Error(error.message);
@@ -52,14 +50,13 @@ export class AuthService {
     return this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
       .then((userCredential: firebase.auth.UserCredential) => {
-        this.authState = userCredential;
-        const status = 'online';
+        this._user.next(userCredential.user);
         this.chatService.postUser(
           userCredential.user.uid,
           email,
           displayName,
           password,
-          status
+          StatusType.Online
         ),
           (error) => {
             throw new Error(error.message);

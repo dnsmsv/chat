@@ -1,22 +1,32 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertType } from '../models/alertType';
+import { StatusType } from '../models/statusType';
+import { AlertService } from '../services/alert.service';
 import { ChatService } from '../services/chat.service';
 
 @Component({
   selector: 'app-chat-form',
   templateUrl: './chat-form.component.html',
-  styleUrls: ['./chat-form.component.css']
+  styleUrls: ['./chat-form.component.css'],
 })
 export class ChatFormComponent implements OnInit {
   message: string;
 
-  constructor(private chat: ChatService) { }
+  constructor(
+    private alertService: AlertService,
+    private chatService: ChatService
+  ) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   send() {
-    this.chat.postMessage(this.message);
-    this.message = ''
+    try {
+      this.chatService.postMessage(this.message);
+    } catch (error) {
+      this.alertService.show(error.message, AlertType.Error);
+    }
+
+    this.message = '';
   }
 
   handleSubmit(event) {

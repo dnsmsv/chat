@@ -1,13 +1,12 @@
 import { Injectable, Query } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { AuthService } from '../services/auth.service';
 import * as firebase from 'firebase/app';
 
 import { ChatMessage } from '../models/chat-message.model';
 import { User } from '../models/user.model';
+import { StatusType } from '../models/statusType';
 
 @Injectable({
   providedIn: 'root',
@@ -19,15 +18,11 @@ export class ChatService {
   userName: string;
   private url = 'https://chat-d73d2.firebaseio.com';
 
-  constructor(
-    private http: HttpClient,
-    private db: AngularFireDatabase,
-    private afAuth: AngularFireAuth
-  ) {
+  constructor(private http: HttpClient, private afAuth: AngularFireAuth) {
     this.afAuth.authState.subscribe((auth) => {
       if (auth !== undefined && auth !== null) {
         this.user = auth;
-
+        this.updateUser(StatusType.Online);
         this.getUser(this.user.uid).subscribe(
           (data: User) => {
             this.userName = data.name;
@@ -35,7 +30,11 @@ export class ChatService {
           (error) => console.error('Error:', error)
         );
 
+        this.getUsers();
         this.getMessages();
+      } else if (this.user) {
+        this.updateUser(StatusType.Offline);
+        this.user = null;
       }
     });
   }
@@ -50,19 +49,21 @@ export class ChatService {
       null
     );
     this.http
-      .post(`${this.url}/messages.json`, chatMessage, {
+      .post<ChatMessage>(`${this.url}/messages.json`, chatMessage, {
         headers: {
           'content-type': 'application/json',
         },
       })
       .subscribe(
-        () => {
+        (data) => {
           const newMessages = this.chatMessages.value;
           chatMessage.isOwn = true;
           newMessages.push(chatMessage);
           this.chatMessages.next(newMessages);
         },
-        (error) => console.error('Error:', error)
+        (error) => {
+          throw new Error(error);
+        }
       );
   }
 
@@ -91,23 +92,13 @@ export class ChatService {
       );
   }
 
-  getUser(id: string): Observable<User> {
-    return this.http.get(`${this.url}/users/${id}.json`, {
-      headers: {
-        'content-type': 'application/json',
-      },
-    });
-  }
-
   postUser(
     id: string,
     email: string,
     name: string,
     password: string,
-    status: string
+    status: StatusType
   ): void {
-    console.log('post=', id);
-
     const user: User = new User(id, email, name, password, status);
     this.http
       .put(`${this.url}/users/${id}.json`, user, {
@@ -125,10 +116,45 @@ export class ChatService {
       );
   }
 
-  updateUser(id: string, status: string): void {
+  getUser(id: string): Observable<User> {
+    return this.http.get(`${this.url}/users/${id}.json`, {
+      headers: {
+        'content-type': 'application/json',
+      },
+    });
+  }
+
+  getUsers(): void {
+    if (!this.user) {
+      return;
+    }
+
+    this.http
+      .get<User[]>(`${this.url}/users.json`, {
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
+      .subscribe(
+        (data: User[]) => {
+          if (data) {
+            const users = Reflect.ownKeys(data).map((key) => ({
+              ...data[key],
+            }));
+            this.users.next(users);
+          }
+        },
+        (error) => console.error('Error:', error)
+      );
+  }
+
+  updateUser(status: StatusType): void {
+    if (!this.user) return;
+
+    const id: string = this.user.uid;
     this.http
       .patch(
-        `${this.url}/users/${id}.json`,
+        `${this.url}/users/${this.user.uid}.json`,
         {
           status: status,
         },
