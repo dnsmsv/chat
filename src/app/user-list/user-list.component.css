@@ -1,8 +1,11 @@
 .usersContainer {
   display: flex;
   flex-direction: column;
+  margin: 20px;
 }
 
 .users {
+  flex-direction: column;
   height: auto;
+  margin: 5px 0;
 }

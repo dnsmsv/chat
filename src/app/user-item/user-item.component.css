@@ -1,6 +1,9 @@
 .userContext {
   position: relative;
-  display: inline-block;
+  min-width: 180px;
+  border-radius: 5px;
+  padding: 8px;
+  background-color: rgba(28, 28, 71, 0.808);
 }
 
 .tooltiptext {
@@ -13,7 +16,8 @@
   border-radius: 5px;
   padding: 5px;
   position: absolute;
-  left: 105%;
+  top: 80%;
+  left: 50%;
   z-index: 1;
   color: white;
   background-color: rgba(74, 74, 187, 0.705);
@@ -24,11 +28,11 @@
 }
 
 .status {
-  height: 13px;
-  width: 13px;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
   border: black 1px solid;
-  display: inline-block;
 }
 
 .status.online {
@@ -40,6 +44,6 @@
 }
 
 .name {
-  display: inline-block;
+  color: rgba(241, 241, 241, 0.733);
   margin: 5px;
 }
