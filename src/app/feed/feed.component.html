@@ -1,5 +1,7 @@
 <div class="feed">
-    <div *ngFor="let messages of feed" class="message">
+    <div *ngFor="let messages of feed" 
+        class="message"
+        [class.ownMessage]="messages.isOwn">
         <app-message [chatMessage]=messages></app-message>
     </div>
 </div>

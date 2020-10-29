@@ -1,8 +1,8 @@
 .messageContainer {
   display: flex;
   height: auto;
-  min-width: 400px;
-  width: 70%;
+  min-width: 100px;
+  width: auto;
   border-radius: 5px;
   align-items: stretch;
   background-color: #eeeeee;
@@ -10,11 +10,13 @@
 }
 
 .isOwnMessageContainer {
+  justify-content: flex-end;
   background-color: #01579b;
 }
 
 .messageData {
   flex: 1;
+  align-items: flex-end;
   padding: 10px;
   font-size: 0.7em;
 }
