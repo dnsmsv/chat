@@ -1,8 +1,8 @@
 .messageContainer {
   display: flex;
   height: auto;
-  width: 70%;
   min-width: 400px;
+  width: 70%;
   border-radius: 5px;
   align-items: stretch;
   background-color: #eeeeee;
@@ -39,10 +39,12 @@
 }
 
 .messageContent {
-  height: auto;
   flex: 9;
+  height: auto;
   background-color: #fff;
   padding: 10px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 .isOwnMessageContent {

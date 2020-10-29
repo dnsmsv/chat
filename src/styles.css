@@ -1,37 +1,31 @@
 * {
-    height: 100%;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    border: 0;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 body {
-    width: 100%;
-    min-height: 100%;
-    background: #eeeeee;
-    background-attachment: fixed;
-    background-size: cover;
-    font-family: "Open Sans", sans-serif;
-}
-
-app-chartroom {
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  padding: 0;
+  background: #eeeeee;
+  background-attachment: fixed;
+  background-size: cover;
+  font-family: "Open Sans", sans-serif;
 }
 
 app-navbar {
-    width: 100%;
+  width: 100%;
 }
 
 app-chat-form {
-    width: 100%;
-    display: flex;
-    white-space: nowrap;
-    overflow: none;
+  width: 100%;
+  display: flex;
+  white-space: nowrap;
+  overflow: none;
 }
 
 .message {
-    display: block;
-    height: auto;
+  display: block;
+  height: auto;
 }

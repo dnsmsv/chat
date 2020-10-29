@@ -1,36 +1,19 @@
 .userContext {
-  position: relative;
-  min-width: 180px;
-  border-radius: 5px;
-  padding: 8px;
+  min-width: 150px;
+  border-radius: 7px;
+  padding: 3px;
   background-color: rgba(28, 28, 71, 0.808);
 }
 
-.tooltiptext {
-  display: inline;
-  overflow: hidden;
-  visibility: hidden;
-  width: auto;
-  height: auto;
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px;
-  position: absolute;
-  top: 80%;
-  left: 50%;
-  z-index: 1;
-  color: white;
-  background-color: rgba(74, 74, 187, 0.705);
-}
-
-.userContext:hover .tooltiptext {
-  visibility: visible;
+.userContext:hover {
+  background-color: rgba(46, 46, 80, 0.808);
 }
 
 .status {
   display: inline-block;
   width: 10px;
   height: 10px;
+  margin: 3px 6px;
   border-radius: 50%;
   border: black 1px solid;
 }
@@ -44,6 +27,7 @@
 }
 
 .name {
+  display: inline-block;
   color: rgba(241, 241, 241, 0.733);
   margin: 5px;
 }
