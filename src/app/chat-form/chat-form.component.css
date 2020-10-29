@@ -27,5 +27,9 @@
 }
 
 .chatButton:hover {
-  background-color: #444444;
+  background-color: #3d3b58;
+}
+
+.chatButton:disabled {
+  background-color: #42424233;
 }
