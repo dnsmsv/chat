@@ -33,11 +33,11 @@
 
 @media screen and (max-width: 950px) {
   .chatInput {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .chatButton {
-    font-size: 12px;
+    font-size: 14px;
     flex: 0 0 100px;
   }
 }

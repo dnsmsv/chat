@@ -36,7 +36,7 @@
 }
 
 .chatFormWrapper {
-  flex: 0 0 30px;
+  flex: 0 0 40px;
   order: 3;
   z-index: 1;
   width: 80%;

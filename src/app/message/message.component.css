@@ -17,7 +17,6 @@
 .messageData {
   flex: 1;
   padding: 10px;
-  min-width: 70px;
 }
 
 .sender {
@@ -55,20 +54,22 @@
 
 @media screen and (max-width: 950px) {
   .messageData {
-    font-size: 8px;
+    font-size: 12px;
+    min-width: 50px;
   }
 
   .messageContent {
-    font-size: 9px;
+    font-size: 14px;
   }
 }
 
 @media screen and (min-width: 951px) {
   .messageData {
-    font-size: 13px;
+    font-size: 0.8em;
+    min-width: 70px;
   }
 
   .messageContent {
-    font-size: 17px;
+    font-size: 1em;
   }
 }

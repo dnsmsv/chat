@@ -4,7 +4,7 @@
             {{ userName }}
         </span>
         <span class="timestamp" [class.isOwnTimestamp]="isOwnMessage">
-            {{ timeStamp | date: 'medium' }}
+            {{ timeStamp | date: 'HH:mm' }}
         </span>
     </div>
     <div class="messageContent" [class.isOwnMessageContent]="isOwnMessage">

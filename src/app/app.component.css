@@ -14,3 +14,9 @@
 router-outlet {
   flex: 0 0 0;
 }
+
+@media screen and (max-width: 950px) {
+  .chatHeaderWrapper {
+    flex: 0 0 60px;
+  }
+}
