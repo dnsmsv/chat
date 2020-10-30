@@ -28,7 +28,11 @@ export class FeedComponent implements OnInit, AfterViewChecked {
 
   ngOnInit(): void {
     this.chatService.chatMessages.subscribe((messages) => {
-      if (messages && messages.length) {
+      if (
+        messages &&
+        messages.length &&
+        (!this.feed || messages.length != this.feed.length)
+      ) {
         this.feed = messages;
         this.scrolled = false;
       }

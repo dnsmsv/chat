@@ -47,3 +47,27 @@
   border-radius: 10px;
   background-color: #f5f5f5;
 }
+
+@media screen and (max-width: 950px) {
+  .userListWrapper {
+    display: none;
+  }
+
+  .feedWrapper {
+    width: 100%;
+  }
+
+  .chatFormWrapper {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: 951px) {
+  .feedWrapper {
+    width: 80%;
+  }
+
+  .chatFormWrapper {
+    width: 80%;
+  }
+}

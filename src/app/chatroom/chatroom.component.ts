@@ -11,8 +11,17 @@ export class ChatroomComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    if (!this.authService.user.value) {
+    this.redirect(this.authService.user.value);
+    this.authService.user.subscribe((user) => {
+      this.redirect(user);
+    });
+  }
+
+  private redirect(user) {
+    if (user === null) {
       this.router.navigate(['login']);
+    } else {
+      this.router.navigate(['chat']);
     }
   }
 }

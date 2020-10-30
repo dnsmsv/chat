@@ -18,7 +18,6 @@
   flex: 1;
   padding: 10px;
   min-width: 70px;
-  font-size: 0.7em;
 }
 
 .sender {
@@ -52,4 +51,24 @@
 .isOwnMessageContent {
   background-color: #e3f2fd;
   color: #01579b;
+}
+
+@media screen and (max-width: 950px) {
+  .messageData {
+    font-size: 8px;
+  }
+
+  .messageContent {
+    font-size: 9px;
+  }
+}
+
+@media screen and (min-width: 951px) {
+  .messageData {
+    font-size: 13px;
+  }
+
+  .messageContent {
+    font-size: 17px;
+  }
 }

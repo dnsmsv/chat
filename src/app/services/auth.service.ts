@@ -13,9 +13,9 @@ export class AuthService {
     private afAuth: AngularFireAuth,
     private chatService: ChatService
   ) {
-    afAuth.authState.subscribe((state: firebase.User) =>
-      this._user.next(state)
-    );
+    afAuth.authState.subscribe((state: firebase.User) => {
+      this._user.next(state);
+    });
   }
 
   get user() {
