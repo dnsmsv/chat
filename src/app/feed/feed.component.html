@@ -1,4 +1,4 @@
-<div class="feed">
+<div #scroller class="feed">
     <div *ngFor="let messages of feed" 
         class="message"
         [class.ownMessage]="messages.isOwn">

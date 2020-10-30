@@ -13,14 +13,17 @@
   color: #ffffff;
   background-color: #2a2845;
   padding: 0;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.37), 1px 2px 3px rgba(0, 0, 0, 0.54);
+  z-index: 1;
 }
 
 .feedWrapper {
   flex: 1 1 0;
   order: 2;
+  width: 80%;
   font-family: "Open Sans", sans-serif;
   font-size: 1.2em;
-  overflow-y: auto;
+  overflow-y: hidden;
   padding: 10px 0px 10px 0px;
   background-color: #ffffff;
   background: linear-gradient(
@@ -29,11 +32,13 @@
       rgba(0, 0, 0, 0.8)
     ),
     url("../../assets/img/chat-bg-1.jpg") center no-repeat;
+  background-size: cover;
 }
 
 .chatFormWrapper {
   flex: 0 0 30px;
   order: 3;
+  z-index: 1;
   width: 80%;
   background-color: #eeeeee;
 }

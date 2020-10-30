@@ -16,8 +16,8 @@
 
 .messageData {
   flex: 1;
-  align-items: flex-end;
   padding: 10px;
+  min-width: 70px;
   font-size: 0.7em;
 }
 

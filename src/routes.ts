@@ -7,5 +7,5 @@ export const appRoutes: Routes = [
   { path: 'signup', component: SignupFormComponent },
   { path: 'login', component: LoginFormComponent },
   { path: 'chat', component: ChatroomComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/chat', pathMatch: 'full' },
 ];
