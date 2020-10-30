@@ -37,6 +37,8 @@ export class ChatService {
         this.user = null;
       }
     });
+
+    setInterval(() => this.getMessages(), 2000);
   }
 
   postMessage(msg: string) {
