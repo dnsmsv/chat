@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { StatusType } from './models/statusType';
 import { ChatService } from './services/chat.service';
 
@@ -7,24 +7,28 @@ import { ChatService } from './services/chat.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'chat';
   private statusTimeout: NodeJS.Timeout;
 
   constructor(private chatService: ChatService) {}
 
-  ngOnInit(): void {
-    window.addEventListener('focus', () => {
-      this.chatService.updateUser(StatusType.Online);
-      if (this.statusTimeout) clearTimeout(this.statusTimeout);
-    });
-    window.addEventListener('blur', () => {
-      this.statusTimeout = setTimeout(() => {
-        this.chatService.updateUser(StatusType.Offline);
-      }, 180000);
-    });
-    window.addEventListener('beforeunload', () => {
+  @HostListener('window:focus', ['$event'])
+  handleWindowFocuse(event: any) {
+    this.chatService.updateUser(StatusType.Online);
+
+    if (this.statusTimeout) clearTimeout(this.statusTimeout);
+  }
+
+  @HostListener('window:blur', ['$event'])
+  handleWindowBlur(event: any) {
+    this.statusTimeout = setTimeout(() => {
       this.chatService.updateUser(StatusType.Offline);
-    });
+    }, 180000);
+  }
+
+  @HostListener('window:beforeunload', ['$event'])
+  handleWindowBeforeunload(event: any) {
+    this.chatService.updateUser(StatusType.Offline);
   }
 }
