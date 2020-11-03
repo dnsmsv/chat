@@ -1,4 +1,7 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   overflow: hidden;
   background: linear-gradient(
       45deg,
@@ -15,9 +18,8 @@
   border-radius: 4px;
   background-color: rgba(255, 255, 255, 0.85);
   width: 700px;
-  height: 520px;
+  height: auto;
   margin: auto;
-  margin-top: 30px;
   padding: 80px 30px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.17), 0 1px 2px rgba(0, 0, 0, 0.24);
   overflow: hidden;
@@ -36,6 +38,8 @@
 }
 
 .btn {
+  display: block;
+  width: 100%;
   height: 54px;
   margin-top: 32px;
   border: none;
@@ -47,7 +51,6 @@
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.17), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: ease-in 0.2s;
-  width: 100%;
 }
 
 #btn-signUp {
@@ -73,5 +76,58 @@ a {
 }
 
 .label {
+  display: block;
+  width: 100%;
   font-size: 0.9em;
+  height: 1.5em;
+}
+
+@media screen and (max-width: 950px) {
+  .signUpCard {
+    width: 80%;
+    margin: auto;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  .label {
+    font-size: 0.8em;
+  }
+
+  .formInput {
+    font-size: 0.8em;
+    height: 30px;
+  }
+
+  .btn {
+    font-size: 0.8em;
+    height: 44px;
+  }
+}
+
+@media screen and (max-height: 550px) {
+  .signUpCard {
+    padding-top: 10px;
+    padding-bottom: 15px;
+  }
+
+  h2 {
+    font-size: 1.2em;
+  }
+
+  .label {
+    font-size: 0.8em;
+  }
+
+  .formInput {
+    font-size: 0.8em;
+    height: 30px;
+  }
+
+  .btn {
+    font-size: 0.8em;
+    height: 44px;
+  }
 }

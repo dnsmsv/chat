@@ -1,5 +1,4 @@
 .chatRoom {
-  height: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -7,16 +6,16 @@
 .chatHeaderWrapper {
   flex: 0 0 90px;
   color: #222222;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.37), 1px 2px 3px rgba(0, 0, 0, 0.54);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.37);
   z-index: 2;
 }
 
 router-outlet {
-  flex: 0 0 0;
+  flex: 1 1 0;
 }
 
 @media screen and (max-width: 950px) {
   .chatHeaderWrapper {
-    flex: 0 0 60px;
+    flex: 0 0 50px;
   }
 }
