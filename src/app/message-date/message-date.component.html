@@ -1,0 +1,5 @@
+<div class="date">
+  {{ (date | date: 'MMM dd, yyyy') === (today | date: 'MMM dd, yyyy') 
+    ? 'Today' 
+    : (date | date: 'MMM dd, yyyy')}}
+</div>

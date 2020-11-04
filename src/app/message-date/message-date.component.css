@@ -1,0 +1,14 @@
+.date {
+  color: #01579b;
+  background-color: #e3f2fd;
+  padding: 0px 4px;
+  border-radius: 5px;
+  font-size: 0.9em;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.26), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+@media screen and (max-width: 950px) {
+  .date {
+    font-size: 0.7em;
+  }
+}

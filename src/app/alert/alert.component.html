@@ -5,6 +5,6 @@
   [class.warning]="alert.type === alertType.Warning"
   [class.error]="alert.type === alertType.Error"
 >
+<button (click)="hide()">x</button>
   <p>{{ alert.text }}</p>
-  <button (click)="hide()">x</button>
 </div>

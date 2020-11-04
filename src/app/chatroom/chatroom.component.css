@@ -41,6 +41,7 @@
   z-index: 1;
   width: 80%;
   background-color: #eeeeee;
+  overflow: hidden;
 }
 
 #scroll-style::-webkit-scrollbar-track {

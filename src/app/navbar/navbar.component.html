@@ -3,16 +3,16 @@
   <div id="heading">Chat</div>
   <div class="links">
     <span>
-      <a *ngIf="!userEmail" routerLink="/login">Login</a>
+      <a *ngIf="!userName" routerLink="/login">Login</a>
     </span>
     <span>
-      <a *ngIf="!userEmail" routerLink="/signup">Sign Up</a>
+      <a *ngIf="!userName" routerLink="/signup">Sign Up</a>
     </span>
     <span>
-      <span id="userEmail" *ngIf="userEmail">Hello, {{ userEmail }}</span>
+      <span id="userEmail" *ngIf="userName">Hello, {{ userName }}</span>
     </span>
     <span>
-      <a *ngIf="userEmail" (click)="logout()">Logout</a>
+      <a *ngIf="userName" (click)="logout()">Logout</a>
     </span>
   </div>
 </div>

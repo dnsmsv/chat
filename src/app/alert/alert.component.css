@@ -73,8 +73,7 @@
 }
 
 p {
-  padding: 0 10px;
-  line-height: 60px;
+  padding: 10px;
   float: left;
 }
 
@@ -85,4 +84,10 @@ button {
   font-size: 1.2em;
   font-weight: bold;
   height: 20px;
+}
+
+@media screen and (max-width: 950px) {
+  .alertCard {
+    right: 5px;
+  }
 }

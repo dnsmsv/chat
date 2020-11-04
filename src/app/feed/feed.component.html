@@ -1,7 +1,11 @@
 <div #scroller class="feed">
-    <div *ngFor="let messages of feed" 
-        class="message"
-        [class.ownMessage]="messages.isOwn">
-        <app-message [chatMessage]=messages></app-message>
+    <div *ngFor="let messages of feed; let i = index;" class="messages">
+        <app-message-date
+            *ngIf="i == 0 || 
+                (feed[i - 1].timeSent | date: 'ddMMyyyy') !== (messages.timeSent | date: 'ddMMyyyy')"
+            [date]="messages.timeSent">
+        </app-message-date>
+        <app-message [class.ownMessage]="messages.isOwn" [chatMessage]=messages>
+        </app-message>
     </div>
 </div>

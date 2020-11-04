@@ -26,6 +26,7 @@ import { ChatService } from './services/chat.service';
 import { appRoutes } from 'src/routes';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { MessageDateComponent } from './message-date/message-date.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
     UserListComponent,
     UserItemComponent,
     AlertComponent,
+    MessageDateComponent,
   ],
   imports: [
     BrowserModule,

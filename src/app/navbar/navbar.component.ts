@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../services/alert.service';
 import { AlertType } from '../models/alertType';
+import { ChatService } from '../services/chat.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,17 +11,24 @@ import { AlertType } from '../models/alertType';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
-  userEmail: string;
+  userName: string;
 
   constructor(
     private alertService: AlertService,
     private authService: AuthService,
+    private chatService: ChatService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
     this.authService.user.subscribe((user) => {
-      this.userEmail = user?.email;
+      if (user) {
+        this.chatService
+          .getUser(user.uid)
+          .subscribe((u) => (this.userName = u?.name));
+      } else {
+        this.userName = null;
+      }
     });
   }
 

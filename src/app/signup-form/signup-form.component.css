@@ -32,9 +32,12 @@
   border-radius: 4px;
   background: #ecf0f1;
   border: #cccccc 1px solid;
-  padding: 8px;
   font-size: 1em;
   margin-bottom: 18px;
+  padding: 8px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .btn {

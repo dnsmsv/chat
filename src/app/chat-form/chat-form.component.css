@@ -5,6 +5,7 @@
   color: #000000;
   transition: 0.1s ease-out;
   padding-left: 80px;
+  box-sizing: border-box;
 }
 
 .chatInput:focus {
@@ -34,6 +35,7 @@
 @media screen and (max-width: 950px) {
   .chatInput {
     font-size: 14px;
+    padding-left: 20px;
   }
 
   .chatButton {
