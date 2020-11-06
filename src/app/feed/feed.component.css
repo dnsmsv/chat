@@ -7,17 +7,10 @@
 .messages {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
 }
 
 app-message-date {
   align-self: center;
-}
-
-app-message {
-  margin: 10px 20px;
-}
-
-.ownMessage {
-  align-self: flex-end;
+  margin: 10px;
 }

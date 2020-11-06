@@ -1,64 +1,91 @@
 .messageContainer {
   display: flex;
-  height: auto;
-  min-width: 100px;
-  width: auto;
-  border-radius: 5px;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: stretch;
-  background-color: #eeeeee;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.26), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.isOwnMessageContainer {
+.messageContainer.isOwn {
   justify-content: flex-end;
-  background-color: #01579b;
+}
+
+.messageContainer.selected {
+  background-color: #e3f2fd9a;
 }
 
 .messageData {
-  flex: 1;
-  padding: 10px;
+  height: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-left: 20px;
+  box-sizing: content-box;
+  min-width: 50px;
+  padding: 8px;
+  background-color: #eeeeee;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: -3px 3px 3px rgba(0, 0, 0, 0.26), -3px 3px 3px rgba(0, 0, 0, 0.23);
+}
+
+.messageData.isOwn {
+  background-color: #01579b;
 }
 
 .sender {
   display: block;
+  height: auto;
   color: #222222;
   font-weight: bold;
 }
 
-.isOwnSender {
+.sender.isOwn {
   color: #e1f5fe;
 }
 
 .timestamp {
+  display: block;
+  height: auto;
   color: #555555;
   font-style: italic;
 }
 
-.isOwnTimestamp {
+.timestamp.isOwn {
   color: #4fc3f7;
 }
 
 .messageContent {
-  flex: 9;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 20px;
+  padding: 8px;
+  box-sizing: content-box;
+  max-width: 80%;
   height: auto;
   background-color: #fff;
-  padding: 10px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.26), 3px 3px 3px rgba(0, 0, 0, 0.23);
+  word-wrap: break-word;
 }
 
-.isOwnMessageContent {
+.messageContent.isOwn {
   background-color: #e3f2fd;
   color: #01579b;
 }
 
 @media screen and (max-width: 950px) {
   .messageData {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 10px;
     font-size: 12px;
-    min-width: 50px;
+    min-width: 40px;
   }
 
   .messageContent {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 10px;
     font-size: 14px;
   }
 }
@@ -66,7 +93,6 @@
 @media screen and (min-width: 951px) {
   .messageData {
     font-size: 0.8em;
-    min-width: 70px;
   }
 
   .messageContent {

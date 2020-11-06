@@ -15,6 +15,7 @@ export class MessageComponent implements OnInit {
   messageContent: string;
   timeStamp: Date;
   isOwnMessage: boolean;
+  selected: boolean;
 
   constructor() {}
 
@@ -24,5 +25,12 @@ export class MessageComponent implements OnInit {
     this.userEmail = chatMessage.email;
     this.userName = chatMessage.userName;
     this.isOwnMessage = chatMessage.isOwn;
+  }
+
+  selectMessage() {
+    this.selected = true;
+    setTimeout(() => {
+      this.selected = false;
+    }, 500);
   }
 }

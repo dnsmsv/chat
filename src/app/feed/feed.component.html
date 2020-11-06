@@ -1,7 +1,6 @@
 <div #scroller class="feed">
     <div *ngFor="let messages of feed; let i = index;" class="messages">
-        <app-message-date
-            *ngIf="i == 0 || 
+        <app-message-date *ngIf="i == 0 || 
                 (feed[i - 1].timeSent | date: 'ddMMyyyy') !== (messages.timeSent | date: 'ddMMyyyy')"
             [date]="messages.timeSent">
         </app-message-date>
