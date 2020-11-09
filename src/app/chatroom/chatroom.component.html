@@ -6,6 +6,7 @@
         <app-feed></app-feed>
     </div>
     <div class="chatFormWrapper">
-        <app-chat-form></app-chat-form>
+        <app-chat-form [class.manageMode]="manageMode"></app-chat-form>
+        <app-manage-form [class.manageMode]="manageMode"></app-manage-form>
     </div>
 </div>

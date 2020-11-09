@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ChatService } from '../services/chat.service';
 import { AuthService } from '../services/auth.service';
 import { ChatMessage } from '../models/chat-message.model';
+import { MessagesService } from '../services/messages.service';
 
 @Component({
   selector: 'app-message',
@@ -16,8 +17,13 @@ export class MessageComponent implements OnInit {
   timeStamp: Date;
   isOwnMessage: boolean;
   selected: boolean;
+  private pressTimeout: NodeJS.Timeout;
 
-  constructor() {}
+  constructor(private messagesService: MessagesService) {
+    messagesService.selectedMessage.subscribe((message) => {
+      if (message != this.chatMessage) this.selected = false;
+    });
+  }
 
   ngOnInit(chatMessage = this.chatMessage): void {
     this.messageContent = chatMessage.message;
@@ -27,10 +33,26 @@ export class MessageComponent implements OnInit {
     this.isOwnMessage = chatMessage.isOwn;
   }
 
-  selectMessage() {
-    this.selected = true;
-    setTimeout(() => {
-      this.selected = false;
-    }, 500);
+  selectUnselectMessage() {
+    this.selected = !this.selected;
+    this.messagesService.selectMessage(this.selected ? this.chatMessage : null);
+
+    if (window.screen.availWidth <= 950) {
+      this.pressTimeout = setTimeout(() => {
+        this.selected = false;
+      }, 300);
+    }
+  }
+
+  mouseDownHandler() {
+    // console.log('Start');
+    // this.pressTimeout = setTimeout(() => {
+    //   this.selected = true;
+    //   console.log('End');
+    // }, 1000);
+  }
+
+  mouseUpHandler() {
+    // clearTimeout(this.pressTimeout);
   }
 }

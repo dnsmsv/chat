@@ -59,6 +59,7 @@ export class ChatService {
       .subscribe(
         (data) => {
           const newMessages = this.chatMessages.value;
+          chatMessage.$key = data['name'];
           chatMessage.isOwn = true;
           newMessages.push(chatMessage);
           this.chatMessages.next(newMessages);
@@ -84,10 +85,34 @@ export class ChatService {
         (data: ChatMessage[]) => {
           if (data) {
             const messages = Reflect.ownKeys(data).map((key) => ({
+              $key: key,
+              isOwn: data[key].email === this.user.email,
+              ...data[key],
+            }));
+            this.chatMessages.next(messages);
+          }
+        },
+        (error) => console.error('Error:', error)
+      );
+  }
+
+  removeMessage(message: ChatMessage): void {
+    this.http
+      .delete<ChatMessage>(`${this.url}/messages/${message.$key}.json`, {
+        headers: {
+          'content-type': 'application/json',
+        },
+      })
+      .subscribe(
+        (data: ChatMessage) => {
+          if (data) {
+            const messages = Reflect.ownKeys(data).map((key) => ({
               ...data[key],
               isOwn: data[key].email === this.user.email,
             }));
-            this.chatMessages.next(messages);
+            this.chatMessages.next(
+              this.chatMessages.value.filter((m) => m.$key !== message.$key)
+            );
           }
         },
         (error) => console.error('Error:', error)

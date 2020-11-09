@@ -1,0 +1,9 @@
+<div class="manageForm">
+  <button id="deleteBtn"
+    *ngIf="deleteVisible"
+    (click)="deleteHandler()">Delete</button>
+  <button id="replyBtn"
+    (click)="replyHandler()">Reply</button>
+  <button id="cancelBtn"
+    (click)="cancelHandler()">Cancel</button>
+</div>

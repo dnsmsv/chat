@@ -1,0 +1,32 @@
+.manageForm {
+  display: flex;
+  flex-direction: row;
+}
+
+button {
+  width: 120px;
+  font-size: 1.3em;
+  font-family: "Droid Sans", sans-serif;
+  background-color: #01579b;
+  color: white;
+  transition: 0.2s ease-out;
+}
+
+button:hover {
+  background-color: #37709c;
+}
+
+#deleteBtn {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#replyBtn {
+}
+
+#cancelBtn {
+  background-color: #eeeeee;
+  color: #222222;
+  margin-left: auto;
+  margin-right: 10px;
+}

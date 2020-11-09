@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { MessagesService } from '../services/messages.service';
 
 @Component({
   selector: 'app-chatroom',
@@ -8,7 +9,17 @@ import { AuthService } from '../services/auth.service';
   styleUrls: ['./chatroom.component.css'],
 })
 export class ChatroomComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) {}
+  manageMode: boolean = false;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private messagesService: MessagesService
+  ) {
+    messagesService.selectedMessage.subscribe(
+      (message) => (this.manageMode = message !== null)
+    );
+  }
 
   ngOnInit(): void {
     this.redirect(this.authService.user.value);

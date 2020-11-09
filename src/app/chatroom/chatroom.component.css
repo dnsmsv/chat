@@ -2,6 +2,13 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  background: linear-gradient(
+      180deg,
+      rgba(100, 200, 2500, 0.5),
+      rgba(0, 0, 0, 0.8)
+    ),
+    url("../../assets/img/chat-bg-1.jpg") center no-repeat;
+  background-size: cover;
 }
 
 .userListWrapper {
@@ -25,14 +32,6 @@
   font-size: 1.2em;
   overflow-y: hidden;
   padding: 10px 0px 10px 0px;
-  background-color: #ffffff;
-  background: linear-gradient(
-      180deg,
-      rgba(100, 200, 2500, 0.5),
-      rgba(0, 0, 0, 0.8)
-    ),
-    url("../../assets/img/chat-bg-1.jpg") center no-repeat;
-  background-size: cover;
 }
 
 .chatFormWrapper {
@@ -40,8 +39,23 @@
   order: 3;
   z-index: 1;
   width: 80%;
-  background-color: #eeeeee;
   overflow: hidden;
+}
+
+app-chat-form {
+  display: block;
+}
+
+app-chat-form.manageMode {
+  display: none;
+}
+
+app-manage-form {
+  display: none;
+}
+
+app-manage-form.manageMode {
+  display: block;
 }
 
 #scroll-style::-webkit-scrollbar-track {

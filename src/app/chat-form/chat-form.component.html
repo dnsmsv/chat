@@ -1,9 +1,11 @@
-<input 
-    class="chatInput"
-    [(ngModel)]="message" 
-    (keydown)="handleSubmit($event)" 
-/>
+<div class="chatForm">
+    <input 
+        class="chatInput"
+        [(ngModel)]="message" 
+        (keydown)="handleSubmit($event)"
+    />
 
-<button class="chatButton"
-    [disabled]="!this.message?.trim()"
-    (click)=send()>Send</button>
+    <button class="chatButton"
+        [disabled]="!this.message?.trim()"
+        (click)=send()>Send</button>
+</div>

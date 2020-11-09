@@ -27,6 +27,7 @@ import { appRoutes } from 'src/routes';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { MessageDateComponent } from './message-date/message-date.component';
+import { ManageFormComponent } from './manage-form/manage-form.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { MessageDateComponent } from './message-date/message-date.component';
     UserItemComponent,
     AlertComponent,
     MessageDateComponent,
+    ManageFormComponent,
   ],
   imports: [
     BrowserModule,

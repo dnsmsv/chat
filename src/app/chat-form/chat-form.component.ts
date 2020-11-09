@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertType } from '../models/alertType';
-import { StatusType } from '../models/statusType';
 import { AlertService } from '../services/alert.service';
 import { ChatService } from '../services/chat.service';
 
