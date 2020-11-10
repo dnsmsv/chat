@@ -13,6 +13,20 @@
         </span>
     </div>
     <div class="messageContent" [class.isOwn]="isOwnMessage">
+        <div class="repliedMessageContainer"
+            *ngIf="repliedMessage">
+            <div class="messageData repliedMessageData" [class.isOwn]="repliedMessage.isOwn">
+                <span class="sender" [class.isOwn]="repliedMessage.isOwn">
+                    {{ repliedMessage.userName }}
+                </span>
+                <span class="timestamp" [class.isOwn]="repliedMessage.isOwn">
+                    {{ repliedMessage.timeSent | date: 'HH:mm' }}
+                </span>
+            </div>
+            <div class="messageContent repliedMessageContent" [class.isOwn]="repliedMessage.isOwn">
+                {{ repliedMessage.message }}
+            </div>
+        </div>
         {{ messageContent }}
     </div>
 </div>

@@ -41,14 +41,15 @@ export class ChatService {
     setInterval(() => this.getMessages(), 2000);
   }
 
-  postMessage(msg: string) {
+  postMessage(msg: string, replyedMessageKey: string) {
     const email = this.user.email;
     const chatMessage: ChatMessage = new ChatMessage(
       this.userName,
       email,
       msg,
       new Date(Date.now()),
-      null
+      null,
+      replyedMessageKey
     );
     this.http
       .post<ChatMessage>(`${this.url}/messages.json`, chatMessage, {
@@ -94,6 +95,14 @@ export class ChatService {
         },
         (error) => console.error('Error:', error)
       );
+  }
+
+  getMessage(key: string): ChatMessage {
+    if (this.chatMessages) {
+      return this.chatMessages.value.find((m) => m.$key === key);
+    }
+
+    return null;
   }
 
   removeMessage(message: ChatMessage): void {

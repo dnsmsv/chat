@@ -6,7 +6,8 @@ export class ChatMessage {
     public email?: string,
     public message?: string,
     public timeSent?: Date,
-    public isOwn?: boolean
+    public isOwn?: boolean,
+    public replyedMessageKey?: string
   ) {
     timeSent = new Date();
   }

@@ -42,8 +42,19 @@
   overflow: hidden;
 }
 
+.chatFormWrapper.replyMode {
+  flex: 0 0 110px;
+}
+
+app-reply-form {
+  display: block;
+  height: 70px;
+  background-color: transparent;
+}
+
 app-chat-form {
   display: block;
+  height: 40px;
 }
 
 app-chat-form.manageMode {
@@ -51,10 +62,6 @@ app-chat-form.manageMode {
 }
 
 app-manage-form {
-  display: none;
-}
-
-app-manage-form.manageMode {
   display: block;
 }
 

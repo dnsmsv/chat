@@ -17,9 +17,13 @@ export class MessageComponent implements OnInit {
   timeStamp: Date;
   isOwnMessage: boolean;
   selected: boolean;
+  repliedMessage: ChatMessage;
   private pressTimeout: NodeJS.Timeout;
 
-  constructor(private messagesService: MessagesService) {
+  constructor(
+    private messagesService: MessagesService,
+    private chatService: ChatService
+  ) {
     messagesService.selectedMessage.subscribe((message) => {
       if (message != this.chatMessage) this.selected = false;
     });
@@ -31,6 +35,20 @@ export class MessageComponent implements OnInit {
     this.userEmail = chatMessage.email;
     this.userName = chatMessage.userName;
     this.isOwnMessage = chatMessage.isOwn;
+
+    if (chatMessage.replyedMessageKey) {
+      const message: ChatMessage = this.chatService.getMessage(
+        chatMessage.replyedMessageKey
+      );
+
+      if (message) {
+        this.repliedMessage = message;
+        this.repliedMessage.message =
+          this.repliedMessage.message && this.repliedMessage.message.length > 38
+            ? this.repliedMessage.message.substr(0, 38) + '...'
+            : this.repliedMessage.message;
+      }
+    }
   }
 
   selectUnselectMessage() {

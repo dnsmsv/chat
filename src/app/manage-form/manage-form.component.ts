@@ -27,13 +27,17 @@ export class ManageFormComponent implements OnInit {
 
   deleteHandler(): void {
     if (this.selectedMessage) {
-      console.log(this.selectedMessage.$key);
-
       this.chatService.removeMessage(this.selectedMessage);
+      this.messagesService.selectMessage(null);
     }
   }
 
-  replyHandler(): void {}
+  replyHandler(): void {
+    if (this.selectedMessage) {
+      this.messagesService.replyMessage(this.selectedMessage);
+      this.messagesService.selectMessage(null);
+    }
+  }
 
   cancelHandler(): void {
     this.messagesService.selectMessage(null);

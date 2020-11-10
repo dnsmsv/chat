@@ -1,0 +1,18 @@
+<div class="replyForm" [class.isOwn]="isOwn">
+  <div class="messageData" [class.isOwn]="isOwn">
+    <span class="sender" [class.isOwn]="isOwn">
+      {{ userName }}
+    </span>
+    <span class="timestamp" [class.isOwn]="isOwn">
+      {{ timeStamp | date: 'HH:mm' }}
+    </span>
+  </div>
+  <div class="messageContent" [class.isOwn]="isOwn">
+    {{ messageContent }}
+  </div>
+  <button id="closeButton" 
+    [class.isOwn]="isOwn"
+    (click)="closeButtonHandler()">
+    X
+  </button>
+</div>

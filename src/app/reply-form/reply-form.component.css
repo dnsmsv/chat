@@ -1,31 +1,22 @@
-.messageContainer {
+.replyForm {
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
   align-items: stretch;
   cursor: pointer;
-}
-
-.messageContainer.isOwn {
-  justify-content: flex-end;
-}
-
-.messageContainer.selected {
-  background-color: #e3f2fd9a;
+  background-color: transparent;
 }
 
 .messageData {
   height: auto;
   margin-top: 5px;
   margin-bottom: 5px;
-  margin-left: 20px;
+  margin-left: 5px;
   box-sizing: content-box;
   min-width: 50px;
   padding: 8px;
   background-color: #eeeeee;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
-  border-width: 0px;
   box-shadow: -3px 3px 3px rgba(0, 0, 0, 0.26), -3px 3px 3px rgba(0, 0, 0, 0.23);
 }
 
@@ -58,42 +49,32 @@
 .messageContent {
   margin-top: 5px;
   margin-bottom: 5px;
-  margin-right: 20px;
   padding: 8px;
   box-sizing: content-box;
-  max-width: 70%;
+  width: 100%;
   height: auto;
   background-color: #fff;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
   box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.26), 3px 3px 3px rgba(0, 0, 0, 0.23);
   word-wrap: break-word;
 }
 
-.repliedMessageContainer {
-  height: 70px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: stretch;
-  cursor: pointer;
-}
-
-.repliedMessageData {
-  margin-left: 5px;
-  margin-top: 0px;
-  border: rgba(0, 0, 0, 0.26) solid;
-  border-width: 1px 0px;
-}
-
-.repliedMessageContent {
-  margin-top: 0px;
-  border: rgba(0, 0, 0, 0.26) 1px solid;
-  color: black;
-  max-width: 65%;
-}
-
 .messageContent.isOwn {
+  background-color: #e3f2fd;
+  color: #01579b;
+}
+
+#closeButton {
+  width: 30px;
+  height: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  margin-right: 5px;
+  background-color: #fff;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+#closeButton.isOwn {
   background-color: #e3f2fd;
   color: #01579b;
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { ChatFormComponent } from '../chat-form/chat-form.component';
 import { AuthService } from '../services/auth.service';
 import { MessagesService } from '../services/messages.service';
 
@@ -9,22 +10,27 @@ import { MessagesService } from '../services/messages.service';
   styleUrls: ['./chatroom.component.css'],
 })
 export class ChatroomComponent implements OnInit {
+  @ViewChild('chatForm', { static: true, read: ChatFormComponent })
+  private chatFormComponent: ChatFormComponent;
   manageMode: boolean = false;
+  replyMode: boolean = false;
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private messagesService: MessagesService
-  ) {
-    messagesService.selectedMessage.subscribe(
-      (message) => (this.manageMode = message !== null)
-    );
-  }
+  ) {}
 
   ngOnInit(): void {
     this.redirect(this.authService.user.value);
     this.authService.user.subscribe((user) => {
       this.redirect(user);
+    });
+    this.messagesService.selectedMessage.subscribe(
+      (message) => (this.manageMode = message !== null)
+    );
+    this.messagesService.repliedMessage.subscribe((message) => {
+      this.replyMode = message !== null;
     });
   }
 

@@ -5,8 +5,10 @@
     <div class="feedWrapper">
         <app-feed></app-feed>
     </div>
-    <div class="chatFormWrapper">
-        <app-chat-form [class.manageMode]="manageMode"></app-chat-form>
-        <app-manage-form [class.manageMode]="manageMode"></app-manage-form>
+    <div class="chatFormWrapper"
+        [class.replyMode]="replyMode">
+        <app-reply-form *ngIf="replyMode"></app-reply-form>
+        <app-chat-form #chatForm [class.manageMode]="manageMode"></app-chat-form>
+        <app-manage-form *ngIf="manageMode && !replyMode"></app-manage-form>
     </div>
 </div>
