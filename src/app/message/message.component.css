@@ -99,6 +99,10 @@
 }
 
 @media screen and (max-width: 950px) {
+  .messageContainer {
+    cursor: none;
+  }
+
   .messageData {
     margin-top: 5px;
     margin-bottom: 5px;

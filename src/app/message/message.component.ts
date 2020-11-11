@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ChatService } from '../services/chat.service';
-import { AuthService } from '../services/auth.service';
 import { ChatMessage } from '../models/chat-message.model';
 import { MessagesService } from '../services/messages.service';
 
@@ -18,14 +17,16 @@ export class MessageComponent implements OnInit {
   isOwnMessage: boolean;
   selected: boolean;
   repliedMessage: ChatMessage;
+
   private pressTimeout: NodeJS.Timeout;
+  private timeoutElapsed: boolean = false;
 
   constructor(
     private messagesService: MessagesService,
     private chatService: ChatService
   ) {
     messagesService.selectedMessage.subscribe((message) => {
-      if (message != this.chatMessage) this.selected = false;
+      this.selected = message === this.chatMessage;
     });
   }
 
@@ -51,26 +52,30 @@ export class MessageComponent implements OnInit {
     }
   }
 
-  selectUnselectMessage() {
-    this.selected = !this.selected;
-    this.messagesService.selectMessage(this.selected ? this.chatMessage : null);
-
+  downHandler() {
     if (window.screen.availWidth <= 950) {
+      console.log('mouseDownHandler');
+
+      this.selected = true;
+      this.timeoutElapsed = false;
       this.pressTimeout = setTimeout(() => {
-        this.selected = false;
+        console.log('timer');
+        this.timeoutElapsed = true;
+        this.messagesService.selectMessage(this.chatMessage);
       }, 300);
+    } else {
+      this.messagesService.selectMessage(
+        this.selected ? null : this.chatMessage
+      );
     }
   }
 
-  mouseDownHandler() {
-    // console.log('Start');
-    // this.pressTimeout = setTimeout(() => {
-    //   this.selected = true;
-    //   console.log('End');
-    // }, 1000);
-  }
-
-  mouseUpHandler() {
-    // clearTimeout(this.pressTimeout);
+  upHandler() {
+    if (window.screen.availWidth <= 950 && !this.timeoutElapsed) {
+      console.log('mouseUpHandler');
+      this.selected = false;
+      this.messagesService.selectMessage(null);
+      clearTimeout(this.pressTimeout);
+    }
   }
 }

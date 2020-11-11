@@ -27,3 +27,10 @@ button:hover {
   margin-left: auto;
   margin-right: 10px;
 }
+
+@media screen and (max-width: 950px) {
+  button {
+    font-size: 14px;
+    width: 100px;
+  }
+}
