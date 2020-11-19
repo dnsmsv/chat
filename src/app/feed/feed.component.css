@@ -8,9 +8,15 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  height: auto;
 }
 
 app-message-date {
   align-self: center;
   margin: 10px;
+  height: auto;
+}
+
+app-message {
+  height: auto;
 }

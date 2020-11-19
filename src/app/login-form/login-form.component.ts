@@ -24,7 +24,9 @@ export class LoginFormComponent {
     const password = this.password;
     this.authService
       .login(email, password)
-      .then(() => this.router.navigate(['chat']))
+      .then(() => {
+        this.router.navigate(['chat']);
+      })
       .catch((error) => this.alertService.show(error.message, AlertType.Error));
   }
 }

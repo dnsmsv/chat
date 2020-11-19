@@ -57,10 +57,10 @@ export class AuthService {
           displayName,
           password,
           StatusType.Online
-        ),
-          (error) => {
-            throw new Error(error.message);
-          };
+        );
+      })
+      .catch((error) => {
+        throw new Error(error.message);
       });
   }
 }

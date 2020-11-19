@@ -22,10 +22,12 @@ export class ChatService {
     this.afAuth.authState.subscribe((auth) => {
       if (auth !== undefined && auth !== null) {
         this.user = auth;
-        this.updateUser(StatusType.Online);
         this.getUser(this.user.uid).subscribe(
           (data: User) => {
-            this.userName = data.name;
+            if (data) {
+              this.userName = data.name;
+              this.updateUser(StatusType.Online);
+            }
           },
           (error) => console.error('Error:', error)
         );
@@ -33,7 +35,14 @@ export class ChatService {
         this.getUsers();
         this.getMessages();
       } else if (this.user) {
-        this.updateUser(StatusType.Offline);
+        this.getUser(this.user.uid).subscribe(
+          (data: User) => {
+            if (data) {
+              this.updateUser(StatusType.Offline);
+            }
+          },
+          (error) => console.error('Error:', error)
+        );
         this.user = null;
       }
     });
@@ -187,29 +196,33 @@ export class ChatService {
   updateUser(status: StatusType): void {
     if (!this.user) return;
 
-    const id: string = this.user.uid;
-    this.http
-      .patch(
-        `${this.url}/users/${this.user.uid}.json`,
-        {
-          status: status,
-        },
-        {
-          headers: {
-            'content-type': 'application/json',
-          },
-        }
-      )
-      .subscribe(
-        () => {
-          const user: User = this.users.value.find((u) => u.id === id);
+    this.getUser(this.user.uid).subscribe((data) => {
+      if (!data) return;
 
-          if (user) {
-            user.status = status;
-            this.users.next(this.users.value);
+      const id: string = this.user.uid;
+      this.http
+        .patch(
+          `${this.url}/users/${this.user.uid}.json`,
+          {
+            status: status,
+          },
+          {
+            headers: {
+              'content-type': 'application/json',
+            },
           }
-        },
-        (error) => console.error('Error:', error)
-      );
+        )
+        .subscribe(
+          () => {
+            const user: User = this.users.value.find((u) => u.id === id);
+
+            if (user) {
+              user.status = status;
+              this.users.next(this.users.value);
+            }
+          },
+          (error) => console.error('Error:', error)
+        );
+    });
   }
 }

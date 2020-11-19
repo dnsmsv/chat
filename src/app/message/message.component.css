@@ -4,6 +4,7 @@
   justify-content: flex-start;
   align-items: stretch;
   cursor: pointer;
+  height: auto;
 }
 
 .messageContainer.isOwn {
@@ -12,6 +13,15 @@
 
 .messageContainer.selected {
   background-color: #e3f2fd9a;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 .messageData {

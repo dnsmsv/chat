@@ -5,6 +5,7 @@
   border-radius: 5px;
   font-size: 0.9em;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.26), 0 3px 6px rgba(0, 0, 0, 0.23);
+  height: auto;
 }
 
 @media screen and (max-width: 950px) {

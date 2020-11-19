@@ -1,10 +1,9 @@
 <div class="messageContainer" 
     [class.isOwn]="isOwnMessage"
     [class.selected]="selected"
-    (mousedown)="downHandler()"
-    (mouseup)="upHandler()"
-    (touchstart)="downHandler()"
-    (touchend)="upHandler()">
+    (mousedown)="mouseDownHandler()"
+    (touchstart)="touchStartHandler()"
+    (touchend)="touchEndHandler()">
     <div class="messageData" [class.isOwn]="isOwnMessage">
         <span class="sender" [class.isOwn]="isOwnMessage">
             {{ userName }}

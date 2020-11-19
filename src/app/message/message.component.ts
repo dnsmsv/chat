@@ -52,10 +52,16 @@ export class MessageComponent implements OnInit {
     }
   }
 
-  downHandler() {
-    if (window.screen.availWidth <= 950) {
-      console.log('mouseDownHandler');
+  mouseDownHandler(): void {
+    if (window.screen.availWidth > 950) {
+      this.messagesService.selectMessage(
+        this.selected ? null : this.chatMessage
+      );
+    }
+  }
 
+  touchStartHandler(): void {
+    if (window.screen.availWidth <= 950) {
       this.selected = true;
       this.timeoutElapsed = false;
       this.pressTimeout = setTimeout(() => {
@@ -63,16 +69,11 @@ export class MessageComponent implements OnInit {
         this.timeoutElapsed = true;
         this.messagesService.selectMessage(this.chatMessage);
       }, 300);
-    } else {
-      this.messagesService.selectMessage(
-        this.selected ? null : this.chatMessage
-      );
     }
   }
 
-  upHandler() {
+  touchEndHandler(): void {
     if (window.screen.availWidth <= 950 && !this.timeoutElapsed) {
-      console.log('mouseUpHandler');
       this.selected = false;
       this.messagesService.selectMessage(null);
       clearTimeout(this.pressTimeout);

@@ -50,7 +50,7 @@ import { ReplyFormComponent } from './reply-form/reply-form.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot(appRoutes, { relativeLinkResolution: 'legacy' }),
     FormsModule,
     HttpClientModule,
     AngularFireModule,
