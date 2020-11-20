@@ -3,16 +3,17 @@
     [class.selected]="selected"
     (mousedown)="mouseDownHandler()"
     (touchstart)="touchStartHandler()"
-    (touchend)="touchEndHandler()">
-    <div class="messageData" [class.isOwn]="isOwnMessage">
+    (touchend)="touchEndHandler()"
+    (touchmove)="touchMoveHandler()">
+    <div class="messageData noselect" [class.isOwn]="isOwnMessage">
         <span class="sender" [class.isOwn]="isOwnMessage">
             {{ userName }}
         </span>
-        <span class="timestamp" [class.isOwn]="isOwnMessage">
+        <span class="timestamp noselect" [class.isOwn]="isOwnMessage">
             {{ timeStamp | date: 'HH:mm' }}
         </span>
     </div>
-    <div class="messageContent" [class.isOwn]="isOwnMessage">
+    <div class="messageContent noselect" [class.isOwn]="isOwnMessage">
         <div class="repliedMessageContainer"
             *ngIf="repliedMessage">
             <div class="messageData repliedMessageData" [class.isOwn]="repliedMessage.isOwn">

@@ -7,7 +7,7 @@
         (keydown)="handleSubmit($event)"
     />
 
-    <button class="chatButton"
+    <button class="btn chatButton"
         [disabled]="!this.message?.trim()"
         (click)=send()>Send</button>
 </div>

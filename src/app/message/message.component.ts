@@ -20,6 +20,8 @@ export class MessageComponent implements OnInit {
 
   private pressTimeout: NodeJS.Timeout;
   private timeoutElapsed: boolean = false;
+  private selectionTimeout: NodeJS.Timeout;
+  private touchEnded: boolean = true;
 
   constructor(
     private messagesService: MessagesService,
@@ -62,18 +64,35 @@ export class MessageComponent implements OnInit {
 
   touchStartHandler(): void {
     if (window.screen.availWidth <= 950) {
-      this.selected = true;
-      this.timeoutElapsed = false;
-      this.pressTimeout = setTimeout(() => {
-        console.log('timer');
-        this.timeoutElapsed = true;
-        this.messagesService.selectMessage(this.chatMessage);
-      }, 300);
+      this.touchEnded = false;
+
+      this.selectionTimeout = setTimeout(() => {
+        this.timeoutElapsed = false;
+
+        if (!this.touchEnded) {
+          this.selected = true;
+
+          this.pressTimeout = setTimeout(() => {
+            this.timeoutElapsed = true;
+            this.messagesService.selectMessage(this.chatMessage);
+          }, 400);
+        }
+      }, 100);
     }
   }
 
   touchEndHandler(): void {
     if (window.screen.availWidth <= 950 && !this.timeoutElapsed) {
+      this.touchEnded = true;
+      this.selected = false;
+      this.messagesService.selectMessage(null);
+      clearTimeout(this.pressTimeout);
+    }
+  }
+
+  touchMoveHandler(): void {
+    if (window.screen.availWidth <= 950 && !this.timeoutElapsed) {
+      clearTimeout(this.selectionTimeout);
       this.selected = false;
       this.messagesService.selectMessage(null);
       clearTimeout(this.pressTimeout);
