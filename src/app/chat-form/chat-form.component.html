@@ -1,7 +1,7 @@
 <div class="chatForm">
     <input
         #chatInput
-        class="chatInput"
+        id="chatInput"
         [(ngModel)]="message" 
         placeholder="Write a message..."
         (keydown)="handleSubmit($event)"

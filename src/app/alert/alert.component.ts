@@ -13,14 +13,13 @@ export class AlertComponent {
   alertType = AlertType;
 
   constructor(private alertService: AlertService) {
-    alertService.alert.subscribe(
-      (alert) => {
+    if (alertService.alert) {
+      alertService.alert.subscribe((alert) => {
         const newAlert: Alert = new Alert();
         newAlert.clone(alert);
         this.alert = newAlert;
-      },
-      (error) => console.error(error)
-    );
+      });
+    }
   }
 
   hide() {

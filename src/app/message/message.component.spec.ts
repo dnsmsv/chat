@@ -1,4 +1,10 @@
+import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from 'src/environments/environment';
+import { ChatService } from '../services/chat.service';
+import { MessagesService } from '../services/messages.service';
 
 import { MessageComponent } from './message.component';
 
@@ -8,9 +14,13 @@ describe('MessageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MessageComponent ]
-    })
-    .compileComponents();
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        AngularFireAuthModule,
+      ],
+      declarations: [MessageComponent],
+      providers: [MessagesService, ChatService, HttpClient, HttpHandler],
+    }).compileComponents();
   });
 
   beforeEach(() => {

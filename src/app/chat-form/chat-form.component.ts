@@ -12,7 +12,7 @@ import { MessagesService } from '../services/messages.service';
 })
 export class ChatFormComponent implements OnInit {
   @ViewChild('chatInput') private chatInput: ElementRef;
-  message: string;
+  message: string = '';
   replyedMessageKey: string;
 
   constructor(

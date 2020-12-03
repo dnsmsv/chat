@@ -1,5 +1,5 @@
 <div class="userContext">
-  <span class="status" [class.online]="user.status === statusType.Online"
-    [class.offline]="user.status === statusType.Offline"></span>
-  <span class="name">{{ user.name }}</span>
+  <span class="status" [class.online]="user && user.status === statusType.Online"
+    [class.offline]="user && user.status === statusType.Offline"></span>
+  <span class="name">{{ user && user.name }}</span>
 </div>

@@ -1,10 +1,10 @@
 <div 
   class="alertCard"
-  [class.visible]="alert.visible"
-  [class.info]="alert.type === alertType.Info"
-  [class.warning]="alert.type === alertType.Warning"
-  [class.error]="alert.type === alertType.Error"
+  [class.visible]="alert && alert.visible"
+  [class.info]="alert && alert.type === alertType.Info"
+  [class.warning]="alert && alert.type === alertType.Warning"
+  [class.error]="alert && alert.type === alertType.Error"
 >
 <button (click)="hide()">x</button>
-  <p>{{ alert.text }}</p>
+  <p>{{ alert && alert.text }}</p>
 </div>

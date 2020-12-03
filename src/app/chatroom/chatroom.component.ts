@@ -34,11 +34,11 @@ export class ChatroomComponent implements OnInit {
     });
   }
 
-  private redirect(user) {
-    if (user === null) {
-      this.router.navigate(['login']);
-    } else {
-      this.router.navigate(['chat']);
-    }
+  public redirect(user) {
+    // if (user === null) {
+    //   this.router.navigate(['login']);
+    // } else {
+    //   this.router.navigate(['chat']);
+    // }
   }
 }

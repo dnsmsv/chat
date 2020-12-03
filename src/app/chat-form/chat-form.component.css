@@ -3,7 +3,7 @@
   flex-direction: row;
 }
 
-.chatInput {
+#chatInput {
   flex: 1 1 0;
   font-family: "Open Sans", sans-serif;
   background-color: #eee;
@@ -12,7 +12,7 @@
   padding-left: 80px;
 }
 
-.chatInput:focus {
+#chatInput:focus {
   background-color: #e4f1fe;
   color: #222222;
   transition: 0.2s ease-in;
