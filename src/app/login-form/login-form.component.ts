@@ -19,10 +19,10 @@ export class LoginFormComponent {
     private router: Router
   ) {}
 
-  login() {
+  async login() {
     const email = this.email;
     const password = this.password;
-    this.authService
+    await this.authService
       .login(email, password)
       .then(() => {
         this.router.navigate(['chat']);

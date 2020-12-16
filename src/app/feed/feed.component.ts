@@ -39,7 +39,7 @@ export class FeedComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  scrollToBottom(): void {
+  private scrollToBottom(): void {
     this.feedContainer.nativeElement.scrollTop = this.feedContainer.nativeElement.scrollHeight;
   }
 }

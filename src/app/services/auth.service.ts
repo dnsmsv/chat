@@ -23,33 +23,25 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
-      (userCredential: firebase.auth.UserCredential) => {
-        this._user.next(userCredential.user);
-      },
-      (error) => {
-        throw new Error(error.message);
-      }
-    );
+    return this.afAuth.auth
+      .signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        this.user.next(userCredential.user);
+      });
   }
 
   logout() {
-    return this.afAuth.auth.signOut().then(
-      () => {
-        if (this._user.value) {
-          this._user.next(null);
-        }
-      },
-      (error) => {
-        throw new Error(error.message);
+    return this.afAuth.auth.signOut().then(() => {
+      if (this.user.value) {
+        this.user.next(null);
       }
-    );
+    });
   }
 
   signUp(email: string, password: string, displayName: string) {
     return this.afAuth.auth
       .createUserWithEmailAndPassword(email, password)
-      .then((userCredential: firebase.auth.UserCredential) => {
+      .then((userCredential) => {
         this._user.next(userCredential.user);
         this.chatService.postUser(
           userCredential.user.uid,
@@ -58,9 +50,6 @@ export class AuthService {
           password,
           StatusType.Online
         );
-      })
-      .catch((error) => {
-        throw new Error(error.message);
       });
   }
 }

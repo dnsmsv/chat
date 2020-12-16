@@ -27,9 +27,11 @@ export class MessageComponent implements OnInit {
     private messagesService: MessagesService,
     private chatService: ChatService
   ) {
-    messagesService.selectedMessage.subscribe((message) => {
-      this.selected = message === this.chatMessage;
-    });
+    if (messagesService.selectedMessage) {
+      messagesService.selectedMessage.subscribe((message) => {
+        this.selected = message === this.chatMessage;
+      });
+    }
   }
 
   ngOnInit(chatMessage = this.chatMessage): void {
@@ -56,8 +58,12 @@ export class MessageComponent implements OnInit {
     }
   }
 
+  get mobileVersion(): boolean {
+    return window.screen.availWidth <= 950;
+  }
+
   mouseDownHandler(): void {
-    if (window.screen.availWidth > 950) {
+    if (!this.mobileVersion) {
       this.messagesService.selectMessage(
         this.selected ? null : this.chatMessage
       );
@@ -65,7 +71,7 @@ export class MessageComponent implements OnInit {
   }
 
   touchStartHandler(): void {
-    if (window.screen.availWidth <= 950) {
+    if (this.mobileVersion) {
       this.touchEnded = false;
 
       this.selectionTimeout = setTimeout(() => {
@@ -84,7 +90,7 @@ export class MessageComponent implements OnInit {
   }
 
   touchEndHandler(): void {
-    if (window.screen.availWidth <= 950 && !this.timeoutElapsed) {
+    if (this.mobileVersion && !this.timeoutElapsed) {
       this.touchEnded = true;
       this.selected = false;
       this.messagesService.selectMessage(null);
@@ -93,7 +99,7 @@ export class MessageComponent implements OnInit {
   }
 
   touchMoveHandler(): void {
-    if (window.screen.availWidth <= 950 && !this.timeoutElapsed) {
+    if (this.mobileVersion && !this.timeoutElapsed) {
       clearTimeout(this.selectionTimeout);
       this.selected = false;
       this.messagesService.selectMessage(null);

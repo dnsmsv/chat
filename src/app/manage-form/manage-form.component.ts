@@ -17,10 +17,12 @@ export class ManageFormComponent implements OnInit {
     private messagesService: MessagesService,
     private chatService: ChatService
   ) {
-    messagesService.selectedMessage.subscribe((message) => {
-      this.selectedMessage = message;
-      this.deleteVisible = message ? message.isOwn : false;
-    });
+    if (messagesService.selectedMessage) {
+      messagesService.selectedMessage.subscribe((message) => {
+        this.selectedMessage = message;
+        this.deleteVisible = message ? message.isOwn : false;
+      });
+    }
   }
 
   ngOnInit(): void {}

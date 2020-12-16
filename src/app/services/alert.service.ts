@@ -8,15 +8,20 @@ import { AlertType } from '../models/alertType';
 })
 export class AlertService {
   private hideTimeout: NodeJS.Timeout;
+  private _alert: BehaviorSubject<Alert> = new BehaviorSubject<Alert>(
+    new Alert()
+  );
 
   constructor() {}
 
-  alert: BehaviorSubject<Alert> = new BehaviorSubject<Alert>(new Alert());
+  get alert() {
+    return this._alert;
+  }
 
   show(text: string, type: AlertType): void {
-    this.alert.next(new Alert(text, type, true));
+    this._alert.next(new Alert(text, type, true));
     this.hideTimeout = setTimeout(() => {
-      if (this.alert.value.visible) this.hide();
+      if (this._alert.value.visible) this.hide();
     }, 10000);
   }
 
@@ -24,10 +29,10 @@ export class AlertService {
     if (this.hideTimeout) clearTimeout(this.hideTimeout);
 
     const newAlert: Alert = new Alert(
-      this.alert.value.text,
-      this.alert.value.type,
+      this._alert.value.text,
+      this._alert.value.type,
       false
     );
-    this.alert.next(newAlert);
+    this._alert.next(newAlert);
   }
 }

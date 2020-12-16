@@ -21,11 +21,11 @@ export class SignupFormComponent {
     private router: Router
   ) {}
 
-  signUp() {
+  async signUp() {
     const email = this.email;
     const password = this.password;
     const displayName = this.displayName;
-    this.authService
+    await this.authService
       .signUp(email, password, displayName)
       .then(() => this.router.navigate(['chat']))
       .catch((error) => this.alertService.show(error.message, AlertType.Error));

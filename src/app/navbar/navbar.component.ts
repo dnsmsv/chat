@@ -21,19 +21,21 @@ export class NavbarComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.authService.user.subscribe((user) => {
-      if (user) {
-        this.chatService
-          .getUser(user.uid)
-          .subscribe((u) => (this.userName = u?.name));
-      } else {
-        this.userName = null;
-      }
-    });
+    if (this.authService.user) {
+      this.authService.user.subscribe((user) => {
+        if (user) {
+          this.chatService
+            .getUser(user.uid)
+            .subscribe((u) => (this.userName = u?.name));
+        } else {
+          this.userName = null;
+        }
+      });
+    }
   }
 
-  logout(): void {
-    this.authService
+  async logout() {
+    await this.authService
       .logout()
       .then(() => this.router.navigate(['login']))
       .catch((error) => this.alertService.show(error.message, AlertType.Error));
