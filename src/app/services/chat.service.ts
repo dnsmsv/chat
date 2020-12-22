@@ -12,17 +12,35 @@ import { StatusType } from '../models/statusType';
   providedIn: 'root',
 })
 export class ChatService {
-  user: firebase.User;
-  chatMessages: BehaviorSubject<ChatMessage[]> = new BehaviorSubject([]);
+  private _user: firebase.User;
+  private _chatMessages: BehaviorSubject<ChatMessage[]> = new BehaviorSubject(
+    []
+  );
   users: BehaviorSubject<User[]> = new BehaviorSubject([]);
   userName: string;
-  private url = 'https://chat-d73d2.firebaseio.com';
+  private _url = 'https://chat-d73d2.firebaseio.com';
 
   constructor(private http: HttpClient, private afAuth: AngularFireAuth) {
+    this.init();
+  }
+
+  get user() {
+    return this._user;
+  }
+
+  get chatMessages() {
+    return this._chatMessages;
+  }
+
+  get url(): string {
+    return this._url;
+  }
+
+  init() {
     this.afAuth.authState.subscribe((auth) => {
-      if (auth !== undefined && auth !== null) {
-        this.user = auth;
-        this.getUser(this.user.uid).subscribe(
+      if (auth) {
+        this._user = auth;
+        this.getUser(this._user.uid).subscribe(
           (data: User) => {
             if (data) {
               this.userName = data.name;
@@ -43,7 +61,7 @@ export class ChatService {
           },
           (error) => console.error('Error:', error)
         );
-        this.user = null;
+        this._user = null;
       }
     });
 
@@ -51,6 +69,8 @@ export class ChatService {
   }
 
   postMessage(msg: string, replyedMessageKey: string) {
+    if (!this.user) return;
+
     const email = this.user.email;
     const chatMessage: ChatMessage = new ChatMessage(
       this.userName,
@@ -66,26 +86,20 @@ export class ChatService {
           'content-type': 'application/json',
         },
       })
-      .subscribe(
-        (data) => {
-          const newMessages = this.chatMessages.value;
-          chatMessage.$key = data['name'];
-          chatMessage.isOwn = true;
-          newMessages.push(chatMessage);
-          this.chatMessages.next(newMessages);
-        },
-        (error) => {
-          throw new Error(error);
-        }
-      );
+      .subscribe((data) => {
+        const newMessages = this.chatMessages.value;
+        chatMessage.$key = data['name'];
+        chatMessage.isOwn = true;
+        newMessages.push(chatMessage);
+        this.chatMessages.next(newMessages);
+      });
   }
 
-  getMessages(): void {
+  getMessages() {
     if (!this.user) {
       return;
     }
-
-    this.http
+    return this.http
       .get<ChatMessage[]>(`${this.url}/messages.json`, {
         headers: {
           'content-type': 'application/json',
@@ -122,16 +136,10 @@ export class ChatService {
         },
       })
       .subscribe(
-        (data: ChatMessage) => {
-          if (data) {
-            const messages = Reflect.ownKeys(data).map((key) => ({
-              ...data[key],
-              isOwn: data[key].email === this.user.email,
-            }));
-            this.chatMessages.next(
-              this.chatMessages.value.filter((m) => m.$key !== message.$key)
-            );
-          }
+        () => {
+          this.chatMessages.next(
+            this.chatMessages.value.filter((m) => m.$key !== message.$key)
+          );
         },
         (error) => console.error('Error:', error)
       );

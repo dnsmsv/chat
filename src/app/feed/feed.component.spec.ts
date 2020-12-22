@@ -22,7 +22,7 @@ describe('FeedComponent', () => {
         AngularFireAuthModule,
       ],
       declarations: [FeedComponent],
-      providers: [HttpClient, HttpHandler],
+      providers: [ChatService, HttpClient, HttpHandler],
     }).compileComponents();
     chatService = TestBed.inject(ChatService);
   });
@@ -50,7 +50,6 @@ describe('FeedComponent', () => {
 
   it('should init feed when feed is null', () => {
     const messages = [new ChatMessage()];
-    chatService.chatMessages = new BehaviorSubject([]);
     component.feed = null;
     component.ngOnInit();
     chatService.chatMessages.next(messages);
@@ -60,7 +59,6 @@ describe('FeedComponent', () => {
 
   it('should init feed when feed and messages have different size', () => {
     const messages = [new ChatMessage()];
-    chatService.chatMessages = new BehaviorSubject([]);
     component.feed = [new ChatMessage(), new ChatMessage()];
     component.ngOnInit();
     chatService.chatMessages.next(messages);

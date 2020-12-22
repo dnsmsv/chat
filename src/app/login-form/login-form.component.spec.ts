@@ -61,7 +61,7 @@ describe('LoginFormComponent', () => {
     authService.login.and.returnValue(Promise.reject(new Error(message)));
     component.login().then(() => {
       expect(alertService.show).toHaveBeenCalledWith(message, AlertType.Error);
+      done();
     });
-    done();
   });
 });
