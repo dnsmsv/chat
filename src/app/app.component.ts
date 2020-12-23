@@ -14,7 +14,7 @@ export class AppComponent {
   constructor(private chatService: ChatService) {}
 
   @HostListener('window:focus', ['$event'])
-  handleWindowFocuse(event: any) {
+  handleWindowFocus(event: any) {
     this.chatService.updateUser(StatusType.Online);
 
     if (this.statusTimeout) clearTimeout(this.statusTimeout);
