@@ -6,7 +6,7 @@ import {
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from 'src/environments/environment';
-import { StatusType } from '../models/statusType';
+import { StatusType } from '../models/status-type';
 import { User } from '../models/user.model';
 
 import { ChatService } from './chat.service';

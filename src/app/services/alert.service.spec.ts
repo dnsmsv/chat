@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { Alert } from '../models/alert.model';
-import { AlertType } from '../models/alertType';
+import { AlertType } from '../models/alert-type';
 
 import { AlertService } from './alert.service';
 

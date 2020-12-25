@@ -1,5 +1,5 @@
 import { Component, HostListener } from '@angular/core';
-import { StatusType } from './models/statusType';
+import { StatusType } from './models/status-type';
 import { ChatService } from './services/chat.service';
 
 @Component({

@@ -6,7 +6,7 @@ import * as firebase from 'firebase/app';
 
 import { ChatMessage } from '../models/chat-message.model';
 import { User } from '../models/user.model';
-import { StatusType } from '../models/statusType';
+import { StatusType } from '../models/status-type';
 
 @Injectable({
   providedIn: 'root',

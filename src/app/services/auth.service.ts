@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { BehaviorSubject } from 'rxjs';
-import { StatusType } from '../models/statusType';
+import { StatusType } from '../models/status-type';
 import { ChatService } from './chat.service';
 
 @Injectable()

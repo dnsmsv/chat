@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertType } from '../models/alertType';
+import { AlertType } from '../models/alert-type';
 import { AlertService } from '../services/alert.service';
 import { AuthService } from '../services/auth.service';
 

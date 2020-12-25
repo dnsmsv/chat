@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../services/alert.service';
-import { AlertType } from '../models/alertType';
+import { AlertType } from '../models/alert-type';
 import { ChatService } from '../services/chat.service';
 
 @Component({

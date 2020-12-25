@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from 'src/environments/environment';
-import { AlertType } from '../models/alertType';
+import { AlertType } from '../models/alert-type';
 import { ChatMessage } from '../models/chat-message.model';
 import { AlertService } from '../services/alert.service';
 import { ChatService } from '../services/chat.service';

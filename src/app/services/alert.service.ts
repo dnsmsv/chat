@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Alert } from '../models/alert.model';
-import { AlertType } from '../models/alertType';
+import { AlertType } from '../models/alert-type';
 
 @Injectable({
   providedIn: 'root',

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { StatusType } from '../models/statusType';
+import { StatusType } from '../models/status-type';
 import { User } from '../models/user.model';
 
 @Component({

@@ -6,7 +6,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { messaging } from 'firebase';
 import { environment } from 'src/environments/environment';
-import { AlertType } from '../models/alertType';
+import { AlertType } from '../models/alert-type';
 import { AlertService } from '../services/alert.service';
 import { AuthService } from '../services/auth.service';
 

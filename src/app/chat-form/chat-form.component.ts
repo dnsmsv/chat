@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AlertType } from '../models/alertType';
+import { AlertType } from '../models/alert-type';
 import { ChatMessage } from '../models/chat-message.model';
 import { AlertService } from '../services/alert.service';
 import { ChatService } from '../services/chat.service';

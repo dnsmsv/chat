@@ -10,7 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AlertComponent } from './alert/alert.component';
 import { AuthService } from './services/auth.service';
 import { app } from 'firebase';
-import { StatusType } from './models/statusType';
+import { StatusType } from './models/status-type';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;

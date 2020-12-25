@@ -7,7 +7,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AlertComponent } from '../alert/alert.component';
-import { AlertType } from '../models/alertType';
+import { AlertType } from '../models/alert-type';
 import { AlertService } from '../services/alert.service';
 import { AuthService } from '../services/auth.service';
 

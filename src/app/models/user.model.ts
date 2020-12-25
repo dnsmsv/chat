@@ -1,4 +1,4 @@
-import { StatusType } from './statusType';
+import { StatusType } from './status-type';
 
 export class User {
   constructor(
