@@ -36,9 +36,8 @@
 }
 
 @media screen and (max-width: 950px) {
-  .chatInput {
+  #chatInput {
     font-size: 14px;
-    padding-left: 20px;
   }
 
   .chatButton {
@@ -48,12 +47,7 @@
 }
 
 @media screen and (min-width: 951px) {
-  .chatInput {
+  #chatInput {
     font-size: 1.2em;
-  }
-
-  .chatButton {
-    font-size: 1.2em;
-    flex: 0 0 130px;
   }
 }
