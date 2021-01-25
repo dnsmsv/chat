@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { User } from '../models/user.model';
 import { ChatService } from '../services/chat.service';
 
@@ -7,12 +7,16 @@ import { ChatService } from '../services/chat.service';
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.css'],
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, OnDestroy {
   users: User[];
 
   constructor(private chatService: ChatService) {}
 
   ngOnInit(): void {
     this.chatService.users.subscribe((users) => (this.users = users));
+  }
+
+  ngOnDestroy(): void {
+    this.chatService.users.unsubscribe();
   }
 }

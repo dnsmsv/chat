@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessagesService } from '../services/messages.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { MessagesService } from '../services/messages.service';
   templateUrl: './reply-form.component.html',
   styleUrls: ['./reply-form.component.css'],
 })
-export class ReplyFormComponent {
+export class ReplyFormComponent implements OnDestroy {
   userName: string;
   timeStamp: Date;
   messageContent: string;
@@ -21,6 +21,10 @@ export class ReplyFormComponent {
         this.isOwn = message.isOwn;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.messagesService.repliedMessage.unsubscribe();
   }
 
   closeButtonHandler(): void {

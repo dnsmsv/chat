@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { AlertService } from '../services/alert.service';
@@ -10,7 +10,7 @@ import { ChatService } from '../services/chat.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, OnDestroy {
   userName: string;
 
   constructor(
@@ -32,6 +32,10 @@ export class NavbarComponent implements OnInit {
         }
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.authService.user) this.authService.user.unsubscribe();
   }
 
   async logout() {

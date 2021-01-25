@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ChatService } from '../services/chat.service';
 import { ChatMessage } from '../models/chat-message.model';
 import { MessagesService } from '../services/messages.service';
@@ -8,7 +8,7 @@ import { MessagesService } from '../services/messages.service';
   templateUrl: './message.component.html',
   styleUrls: ['./message.component.css'],
 })
-export class MessageComponent implements OnInit {
+export class MessageComponent implements OnInit, OnDestroy {
   @Input() chatMessage: ChatMessage;
   userEmail: string;
   userName: string;
@@ -56,6 +56,11 @@ export class MessageComponent implements OnInit {
             : this.repliedMessage.message;
       }
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.messagesService.selectedMessage)
+      this.messagesService.selectedMessage.unsubscribe();
   }
 
   get mobileVersion(): boolean {

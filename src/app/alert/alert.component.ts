@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertService } from '../services/alert.service';
 import { AlertType } from '../models/alert-type';
 import { Alert } from '../models/alert.model';
@@ -8,7 +8,7 @@ import { Alert } from '../models/alert.model';
   templateUrl: './alert.component.html',
   styleUrls: ['./alert.component.css'],
 })
-export class AlertComponent {
+export class AlertComponent implements OnDestroy {
   alert: Alert;
   alertType = AlertType;
 
@@ -20,6 +20,10 @@ export class AlertComponent {
         this.alert = newAlert;
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    if (this.alertService.alert) this.alertService.alert.unsubscribe();
   }
 
   hide() {

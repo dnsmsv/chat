@@ -15,11 +15,11 @@ export class MessagesService {
 
   constructor() {}
 
-  get selectedMessage(): Observable<ChatMessage> {
+  get selectedMessage() {
     return this._selectedMessage;
   }
 
-  get repliedMessage(): Observable<ChatMessage> {
+  get repliedMessage() {
     return this._repliedMessage;
   }
 

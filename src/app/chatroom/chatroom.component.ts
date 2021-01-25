@@ -1,4 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { ChatFormComponent } from '../chat-form/chat-form.component';
 import { AuthService } from '../services/auth.service';
@@ -9,7 +15,7 @@ import { MessagesService } from '../services/messages.service';
   templateUrl: './chatroom.component.html',
   styleUrls: ['./chatroom.component.css'],
 })
-export class ChatroomComponent implements OnInit {
+export class ChatroomComponent implements OnInit, OnDestroy {
   @ViewChild('chatForm', { static: true, read: ChatFormComponent })
   private chatFormComponent: ChatFormComponent;
   manageMode: boolean = false;
@@ -32,6 +38,12 @@ export class ChatroomComponent implements OnInit {
     this.messagesService.repliedMessage.subscribe((message) => {
       this.replyMode = message !== null;
     });
+  }
+
+  ngOnDestroy(): void {
+    this.authService.user.unsubscribe();
+    this.messagesService.selectedMessage.unsubscribe();
+    this.messagesService.repliedMessage.unsubscribe();
   }
 
   public redirect(user) {

@@ -2,6 +2,7 @@ import {
   AfterViewChecked,
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
@@ -13,12 +14,13 @@ import { ChatMessage } from '../models/chat-message.model';
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.css'],
 })
-export class FeedComponent implements OnInit, AfterViewChecked {
+export class FeedComponent implements OnInit, AfterViewChecked, OnDestroy {
   feed: ChatMessage[];
   private scrolled: boolean = false;
   @ViewChild('scroller') private feedContainer: ElementRef;
 
   constructor(private chatService: ChatService) {}
+
   ngAfterViewChecked(): void {
     if (this.feed && !this.scrolled) {
       this.scrollToBottom();
@@ -37,6 +39,10 @@ export class FeedComponent implements OnInit, AfterViewChecked {
         this.scrolled = false;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.chatService.chatMessages.unsubscribe();
   }
 
   private scrollToBottom(): void {

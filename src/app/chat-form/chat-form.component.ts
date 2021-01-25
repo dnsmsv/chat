@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { AlertType } from '../models/alert-type';
 import { ChatMessage } from '../models/chat-message.model';
 import { AlertService } from '../services/alert.service';
@@ -10,7 +16,7 @@ import { MessagesService } from '../services/messages.service';
   templateUrl: './chat-form.component.html',
   styleUrls: ['./chat-form.component.css'],
 })
-export class ChatFormComponent implements OnInit {
+export class ChatFormComponent implements OnInit, OnDestroy {
   @ViewChild('chatInput') private chatInput: ElementRef;
   message: string = '';
   replyedMessageKey: string;
@@ -32,6 +38,10 @@ export class ChatFormComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    this.messagesService.repliedMessage.unsubscribe();
+  }
 
   send() {
     try {

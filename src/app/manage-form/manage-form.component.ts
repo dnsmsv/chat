@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChatMessage } from '../models/chat-message.model';
 import { ChatService } from '../services/chat.service';
 import { MessagesService } from '../services/messages.service';
@@ -8,7 +8,7 @@ import { MessagesService } from '../services/messages.service';
   templateUrl: './manage-form.component.html',
   styleUrls: ['./manage-form.component.css'],
 })
-export class ManageFormComponent implements OnInit {
+export class ManageFormComponent implements OnInit, OnDestroy {
   private selectedMessage: ChatMessage;
 
   deleteVisible: boolean;
@@ -26,6 +26,11 @@ export class ManageFormComponent implements OnInit {
   }
 
   ngOnInit(): void {}
+
+  ngOnDestroy(): void {
+    if (this.messagesService.selectedMessage)
+      this.messagesService.selectedMessage.unsubscribe();
+  }
 
   deleteHandler(): void {
     if (this.selectedMessage) {
