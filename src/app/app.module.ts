@@ -58,7 +58,7 @@ import { ReplyFormComponent } from './reply-form/reply-form.component';
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebase),
   ],
-  providers: [AlertService, AuthService, ChatService],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

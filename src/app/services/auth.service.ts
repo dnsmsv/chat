@@ -5,7 +5,9 @@ import { BehaviorSubject } from 'rxjs';
 import { StatusType } from '../models/status-type';
 import { ChatService } from './chat.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class AuthService {
   private _user: BehaviorSubject<firebase.User> = new BehaviorSubject(null);
 
