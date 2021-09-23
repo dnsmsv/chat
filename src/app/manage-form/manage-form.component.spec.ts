@@ -44,6 +44,11 @@ describe('ManageFormComponent', () => {
 
   afterEach(() => {
     jasmine.clock().uninstall();
+    const selectedMessageSpy = jasmine.createSpy().and.returnValue(null);
+    Object.defineProperty(messagesService, 'selectedMessage', {
+      get: selectedMessageSpy,
+      configurable: true,
+    });
   });
 
   it('should create', () => {

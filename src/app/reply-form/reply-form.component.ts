@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { MessagesService } from '../services/messages.service';
 
 @Component({
@@ -7,24 +8,28 @@ import { MessagesService } from '../services/messages.service';
   styleUrls: ['./reply-form.component.css'],
 })
 export class ReplyFormComponent implements OnDestroy {
+  private messageSubscription: Subscription;
+
   userName: string;
   timeStamp: Date;
   messageContent: string;
   isOwn: boolean;
 
   constructor(private messagesService: MessagesService) {
-    messagesService.repliedMessage.subscribe((message) => {
-      if (message) {
-        this.userName = message.userName;
-        this.timeStamp = message.timeSent;
-        this.messageContent = message.message;
-        this.isOwn = message.isOwn;
+    this.messageSubscription = messagesService.repliedMessage.subscribe(
+      (message) => {
+        if (message) {
+          this.userName = message.userName;
+          this.timeStamp = message.timeSent;
+          this.messageContent = message.message;
+          this.isOwn = message.isOwn;
+        }
       }
-    });
+    );
   }
 
   ngOnDestroy(): void {
-    this.messagesService.repliedMessage.unsubscribe();
+    this.messageSubscription.unsubscribe();
   }
 
   closeButtonHandler(): void {

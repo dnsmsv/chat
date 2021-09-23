@@ -3,7 +3,6 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ChatMessage } from '../models/chat-message.model';
 import { ChatService } from '../services/chat.service';
@@ -14,7 +13,7 @@ import { MessageComponent } from './message.component';
 describe('MessageComponent', () => {
   let component: MessageComponent;
   let fixture: ComponentFixture<MessageComponent>;
-  let messagesService: MessagesService = new MessagesService();
+  let messagesService: MessagesService;
   const chatService = jasmine.createSpyObj('chatService', ['getMessage']);
 
   beforeEach(async () => {
@@ -25,20 +24,20 @@ describe('MessageComponent', () => {
       ],
       declarations: [MessageComponent],
       providers: [
-        { provide: MessagesService, useValue: messagesService },
+        MessagesService,
         { provide: ChatService, useValue: chatService },
         HttpClient,
         HttpHandler,
       ],
     }).compileComponents();
-    messagesService = TestBed.inject(MessagesService);
-    spyOn(messagesService, 'selectMessage');
   });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(MessageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    messagesService = TestBed.inject(MessagesService);
+    spyOn(messagesService, 'selectMessage');
     jasmine.clock().install();
   });
 

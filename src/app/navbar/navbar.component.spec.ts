@@ -52,6 +52,10 @@ describe('NavbarComponent', () => {
 
   afterEach(() => {
     jasmine.clock().uninstall();
+    const getUserSpy = jasmine.createSpy().and.returnValue(null);
+    Object.defineProperty(authService, 'user', {
+      get: getUserSpy,
+    });
   });
 
   it('should create', () => {
