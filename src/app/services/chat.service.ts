@@ -54,14 +54,15 @@ export class ChatService {
         this.getMessages();
       } else if (this.user) {
         this.getUser(this.user.uid).subscribe(
-          (data: User) => {
+          async (data: User) => {
             if (data) {
-              this.updateUser(StatusType.Offline);
+              await this.updateUser(StatusType.Offline);
             }
+
+            this._user = null;
           },
           (error) => console.error('Error:', error)
         );
-        this._user = null;
       }
     });
 
@@ -201,36 +202,40 @@ export class ChatService {
       );
   }
 
-  updateUser(status: StatusType): void {
+  async updateUser(status: StatusType): Promise<void> {
     if (!this.user) return;
 
-    this.getUser(this.user.uid).subscribe((data) => {
-      if (!data) return;
+    return new Promise((resolve) =>
+      this.getUser(this.user.uid).subscribe((data) => {
+        if (!data) return;
 
-      const id: string = this.user.uid;
-      this.http
-        .patch(
-          `${this.url}/users/${this.user.uid}.json`,
-          {
-            status: status,
-          },
-          {
-            headers: {
-              'content-type': 'application/json',
+        const id: string = this.user.uid;
+        this.http
+          .patch(
+            `${this.url}/users/${this.user.uid}.json`,
+            {
+              status: status,
             },
-          }
-        )
-        .subscribe(
-          () => {
-            const user: User = this.users.value.find((u) => u.id === id);
-
-            if (user) {
-              user.status = status;
-              this.users.next(this.users.value);
+            {
+              headers: {
+                'content-type': 'application/json',
+              },
             }
-          },
-          (error) => console.error('Error:', error)
-        );
-    });
+          )
+          .subscribe(
+            () => {
+              const user: User = this.users.value.find((u) => u.id === id);
+
+              if (user) {
+                user.status = status;
+                this.users.next(this.users.value);
+              }
+
+              resolve();
+            },
+            (error) => console.error('Error:', error)
+          );
+      })
+    );
   }
 }
