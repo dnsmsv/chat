@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AlertService } from '../services/alert.service';
 import { AlertType } from '../models/alert-type';
 import { ChatService } from '../services/chat.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +13,8 @@ import { ChatService } from '../services/chat.service';
 })
 export class NavbarComponent implements OnInit, OnDestroy {
   userName: string;
+
+  private subscription: Subscription;
 
   constructor(
     private alertService: AlertService,
@@ -22,7 +25,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.authService.user) {
-      this.authService.user.subscribe((user) => {
+      this.subscription = this.authService.user.subscribe((user) => {
         if (user) {
           this.chatService
             .getUser(user.uid)
@@ -35,7 +38,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.authService.user) this.authService.user.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
   async logout() {

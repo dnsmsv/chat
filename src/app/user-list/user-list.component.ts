@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { User } from '../models/user.model';
 import { ChatService } from '../services/chat.service';
 
@@ -10,13 +11,17 @@ import { ChatService } from '../services/chat.service';
 export class UserListComponent implements OnInit, OnDestroy {
   users: User[];
 
+  private subscription: Subscription;
+
   constructor(private chatService: ChatService) {}
 
   ngOnInit(): void {
-    this.chatService.users.subscribe((users) => (this.users = users));
+    this.subscription = this.chatService.users.subscribe(
+      (users) => (this.users = users)
+    );
   }
 
   ngOnDestroy(): void {
-    this.chatService.users.unsubscribe();
+    this.subscription.unsubscribe();
   }
 }

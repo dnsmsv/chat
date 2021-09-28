@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { ChatService } from '../services/chat.service';
 import { ChatMessage } from '../models/chat-message.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-feed',
@@ -17,6 +18,7 @@ import { ChatMessage } from '../models/chat-message.model';
 export class FeedComponent implements OnInit, AfterViewChecked, OnDestroy {
   feed: ChatMessage[];
   private scrolled: boolean = false;
+  private subscription: Subscription;
   @ViewChild('scroller') private feedContainer: ElementRef;
 
   constructor(private chatService: ChatService) {}
@@ -29,7 +31,7 @@ export class FeedComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.chatService.chatMessages.subscribe((messages) => {
+    this.subscription = this.chatService.chatMessages.subscribe((messages) => {
       if (
         messages &&
         messages.length &&
@@ -42,10 +44,11 @@ export class FeedComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.chatService.chatMessages.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
   private scrollToBottom(): void {
-    this.feedContainer.nativeElement.scrollTop = this.feedContainer.nativeElement.scrollHeight;
+    this.feedContainer.nativeElement.scrollTop =
+      this.feedContainer.nativeElement.scrollHeight;
   }
 }

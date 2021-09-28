@@ -19,10 +19,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserItemComponent } from './user-item/user-item.component';
 
-import { AlertService } from './services/alert.service';
-import { AuthService } from './services/auth.service';
-import { ChatService } from './services/chat.service';
-
 import { appRoutes } from 'src/routes';
 import { environment } from 'src/environments/environment';
 import { HttpClientModule } from '@angular/common/http';

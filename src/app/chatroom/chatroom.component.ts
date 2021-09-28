@@ -1,13 +1,6 @@
-import {
-  AfterViewInit,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ChatFormComponent } from '../chat-form/chat-form.component';
-import { AuthService } from '../services/auth.service';
 import { MessagesService } from '../services/messages.service';
 
 @Component({
@@ -17,40 +10,29 @@ import { MessagesService } from '../services/messages.service';
 })
 export class ChatroomComponent implements OnInit, OnDestroy {
   @ViewChild('chatForm', { static: true, read: ChatFormComponent })
-  private chatFormComponent: ChatFormComponent;
+  private selectedMessageSubscription: Subscription;
+  private repliedMessageSubscription: Subscription;
   manageMode: boolean = false;
   replyMode: boolean = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private messagesService: MessagesService
-  ) {}
+  constructor(private messagesService: MessagesService) {}
 
   ngOnInit(): void {
-    this.redirect(this.authService.user.value);
-    this.authService.user.subscribe((user) => {
-      this.redirect(user);
-    });
-    this.messagesService.selectedMessage.subscribe(
-      (message) => (this.manageMode = message !== null)
-    );
-    this.messagesService.repliedMessage.subscribe((message) => {
-      this.replyMode = message !== null;
-    });
+    this.selectedMessageSubscription =
+      this.messagesService.selectedMessage.subscribe(
+        (message) => (this.manageMode = message !== null)
+      );
+    this.repliedMessageSubscription =
+      this.messagesService.repliedMessage.subscribe((message) => {
+        this.replyMode = message !== null;
+      });
   }
 
   ngOnDestroy(): void {
-    this.authService.user.unsubscribe();
-    this.messagesService.selectedMessage.unsubscribe();
-    this.messagesService.repliedMessage.unsubscribe();
-  }
+    if (this.selectedMessageSubscription)
+      this.selectedMessageSubscription.unsubscribe();
 
-  public redirect(user) {
-    // if (user === null) {
-    //   this.router.navigate(['login']);
-    // } else {
-    //   this.router.navigate(['chat']);
-    // }
+    if (this.repliedMessageSubscription)
+      this.repliedMessageSubscription.unsubscribe();
   }
 }

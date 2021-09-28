@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { AlertService } from '../services/alert.service';
 import { AlertType } from '../models/alert-type';
 import { Alert } from '../models/alert.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-alert',
@@ -12,9 +13,11 @@ export class AlertComponent implements OnDestroy {
   alert: Alert;
   alertType = AlertType;
 
+  private subscription: Subscription;
+
   constructor(private alertService: AlertService) {
     if (alertService.alert) {
-      alertService.alert.subscribe((alert) => {
+      this.subscription = alertService.alert.subscribe((alert) => {
         const newAlert: Alert = new Alert();
         newAlert.clone(alert);
         this.alert = newAlert;
@@ -23,7 +26,7 @@ export class AlertComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.alertService.alert) this.alertService.alert.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
   hide() {

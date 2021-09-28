@@ -5,6 +5,7 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { AlertType } from '../models/alert-type';
 import { ChatMessage } from '../models/chat-message.model';
 import { AlertService } from '../services/alert.service';
@@ -21,26 +22,30 @@ export class ChatFormComponent implements OnInit, OnDestroy {
   message: string = '';
   replyedMessageKey: string;
 
+  private subscription: Subscription;
+
   constructor(
     private alertService: AlertService,
     private chatService: ChatService,
     private messagesService: MessagesService
   ) {
-    this.messagesService.repliedMessage.subscribe((message) => {
-      if (message !== null) {
-        this.replyedMessageKey = message.$key;
+    this.subscription = this.messagesService.repliedMessage.subscribe(
+      (message) => {
+        if (message !== null) {
+          this.replyedMessageKey = message.$key;
 
-        setTimeout(() => {
-          this.chatInput.nativeElement.focus();
-        }, 300);
+          setTimeout(() => {
+            this.chatInput.nativeElement.focus();
+          }, 300);
+        }
       }
-    });
+    );
   }
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
-    this.messagesService.repliedMessage.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
   send() {

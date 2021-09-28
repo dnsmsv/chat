@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { ChatMessage } from '../models/chat-message.model';
 import { ChatService } from '../services/chat.service';
 import { MessagesService } from '../services/messages.service';
@@ -10,6 +11,7 @@ import { MessagesService } from '../services/messages.service';
 })
 export class ManageFormComponent implements OnInit, OnDestroy {
   private selectedMessage: ChatMessage;
+  private subscription: Subscription;
 
   deleteVisible: boolean;
 
@@ -18,18 +20,19 @@ export class ManageFormComponent implements OnInit, OnDestroy {
     private chatService: ChatService
   ) {
     if (messagesService.selectedMessage) {
-      messagesService.selectedMessage.subscribe((message) => {
-        this.selectedMessage = message;
-        this.deleteVisible = message ? message.isOwn : false;
-      });
+      this.subscription = messagesService.selectedMessage.subscribe(
+        (message) => {
+          this.selectedMessage = message;
+          this.deleteVisible = message ? message.isOwn : false;
+        }
+      );
     }
   }
 
   ngOnInit(): void {}
 
   ngOnDestroy(): void {
-    if (this.messagesService.selectedMessage)
-      this.messagesService.selectedMessage.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
   }
 
   deleteHandler(): void {
