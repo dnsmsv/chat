@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { ChatService } from '../services/chat.service';
 import { ChatMessage } from '../models/chat-message.model';
 import { MessagesService } from '../services/messages.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-message',
@@ -22,15 +23,18 @@ export class MessageComponent implements OnInit, OnDestroy {
   private timeoutElapsed: boolean = false;
   private selectionTimeout: NodeJS.Timeout;
   private touchEnded: boolean = true;
+  private subscription: Subscription;
 
   constructor(
     private messagesService: MessagesService,
     private chatService: ChatService
   ) {
     if (messagesService.selectedMessage) {
-      messagesService.selectedMessage.subscribe((message) => {
-        this.selected = message === this.chatMessage;
-      });
+      this.subscription = messagesService.selectedMessage.subscribe(
+        (message) => {
+          this.selected = message === this.chatMessage;
+        }
+      );
     }
   }
 
@@ -59,8 +63,7 @@ export class MessageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.messagesService.selectedMessage)
-      this.messagesService.selectedMessage.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   get mobileVersion(): boolean {
